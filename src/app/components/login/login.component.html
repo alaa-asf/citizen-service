@@ -1,0 +1,28 @@
+<div class="main">
+  <p-card class="card">
+    <ng-template pTemplate="header">
+      <img src="../../../assets/img/logo.png" alt="logo" class="img-responsive">
+      <p>أهلاً وسهلاً الرجاء تسجيل الدخول</p>
+    </ng-template>
+    <div class="content">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-12">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input class="p-inputtext-lg" type="text" pInputText placeholder="اسم المستخدم">         
+            </div>
+        </div>
+        
+        <div class="col-12 md:col-12">
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+                <input class="p-inputtext-lg" type="password" pInputText placeholder="كلمة المرور">      
+            </div>
+        </div>
+    </div>
+    </div>
+    <ng-template pTemplate="footer">
+      <button pButton type="button" label="تسجيل الدخول" (click)="logIn($event)"></button>
+    </ng-template>
+  </p-card>
+</div>
