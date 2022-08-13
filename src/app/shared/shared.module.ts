@@ -49,7 +49,9 @@ import { ChipModule } from 'primeng/chip';
     InputTextModule,
     ButtonModule,
     CheckboxModule,
-    CardModule
+    CardModule,
+    SidebarModule,
+    ProgressSpinnerModule
   ],
   exports: [
     FormsModule,
@@ -59,7 +61,9 @@ import { ChipModule } from 'primeng/chip';
     InputTextModule,
     ButtonModule,
     CheckboxModule,
-    CardModule
+    CardModule,
+    SidebarModule,
+    ProgressSpinnerModule
   ],
 })
 export class sharedModule {}
