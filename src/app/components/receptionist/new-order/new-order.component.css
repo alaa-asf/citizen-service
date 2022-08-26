@@ -1,0 +1,31 @@
+:host ::ng-deep .p-panel {
+    direction: rtl;
+}
+
+/* :host ::ng-deep .p-inputtext {
+    display: block;
+    margin-bottom: 1px;
+} */
+
+:host ::ng-deep .field {
+    
+    padding-bottom: 15px !important;
+}
+
+:host ::ng-deep .p-dropdown{
+    width: 206.8px;
+}
+
+:host ::ng-deep .p-panel{
+    padding-bottom: 15px;
+}
+
+td{
+    text-align: right;
+    width: 50vw;
+    vertical-align: top;
+}
+
+tr{
+    width: 100% !important;
+}

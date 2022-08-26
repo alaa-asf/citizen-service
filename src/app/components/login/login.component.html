@@ -14,16 +14,26 @@
         <div class="col-12 md:col-12">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input class="p-inputtext-lg" formControlName="userName" type="text" pInputText placeholder="اسم المستخدم">         
+                <input class="p-inputtext-lg" formControlName="user_Name" type="text" pInputText placeholder="اسم المستخدم">         
             </div>
         </div>
         
         <div class="col-12 md:col-12">
             <div class="p-inputgroup">
                 <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
-                <input class="p-inputtext-lg" formControlName="password" type="password" pInputText placeholder="كلمة المرور">      
+                <input class="p-inputtext-lg" formControlName="user_Password" type="password" pInputText placeholder="كلمة المرور">      
             </div>
         </div>
+        <div class="col-12 md:col-12" *ngIf="errorLogIn">
+          <div class="p-inputgroup invalid-feedback">
+              <p>اسم المستخدم او كلمة المرور غير صحيحتين ، الرجاء المحاولة مرة أخرى</p>
+          </div>
+      </div>
+      <div class="col-12 md:col-12" *ngIf="errorconn">
+        <div class="p-inputgroup invalid-feedback">
+            <p>تأكد من الاتصال بشبكة الانترنيت</p>
+        </div>
+    </div>
     </div>
   </form>
     </div>

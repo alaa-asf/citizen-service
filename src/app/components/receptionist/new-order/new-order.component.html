@@ -1,0 +1,38 @@
+<div class="row">
+  <p-panel header="إدخال تفاصيل الطلب">
+    <table>
+      <tr>
+        <td>
+          <div class="row">
+            <p>أدخل الرقم الوطني أولاً لمعرفة اذا كانت بيانات الطالب موجودة مسبقاً أو لا :</p>
+          </div>
+          <div class="field">
+            <label for="username1" class="block">الرقم الوطني</label>&nbsp;&nbsp;
+            <input id="username1" type="username" aria-describedby="username1-help" pInputText (input)="changeNationalID($event)" />
+            <br>
+            <small *ngIf="isNew" id="username1-help" class="block p-inputgroup invalid-feedback">مقدم الطلب جديد يرجى ادخال
+              التفاصيل</small>
+          </div>
+          <div class="field">
+            <label for="username1" class="block"> الكلية</label>&nbsp;&nbsp;
+            <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"></p-dropdown>
+          </div>
+          <div class="field">
+            <label for="username1" class="block"> الخدمات </label>&nbsp;&nbsp;
+            <p-dropdown [options]="services" [(ngModel)]="selectedService" optionLabel="Service_Name"></p-dropdown>
+          </div>
+        </td>
+        <td>
+          <p>الأوراق المطلوبة للخدمة المختارة :</p>
+          <span *ngIf="!selectedService" class="block p-inputgroup invalid-feedback">لم يتم اختيار الخدمة بعد.</span>
+        </td>
+      </tr>
+      <tr>
+
+      </tr>
+    </table>
+  </p-panel>
+  <p-panel header="مقدم الطلب">
+
+  </p-panel>
+</div>

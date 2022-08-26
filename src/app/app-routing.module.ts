@@ -10,6 +10,22 @@ const routes: Routes = [
       path: 'main',
       loadChildren: () => import('./components/main/main.module').then(m => m.MainModule)
     },
+    {
+      path: 'receptionist',
+      loadChildren: () => import('./components/receptionist/receptionist.module').then(m => m.ReceptionistModule)
+    },
+    {
+      path: 'entry',
+      loadChildren: () => import('./components/entry/entry.module').then(m => m.EntryModule)
+    },
+    {
+      path: 'diwan',
+      loadChildren: () => import('./components/diwan/diwan.module').then(m => m.DiwanModule)
+    },
+    {
+      path: 'admin',
+      loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
+    },
     { path: '', redirectTo: '', pathMatch: 'full'},
     { path: '**', redirectTo: ''}
   ];

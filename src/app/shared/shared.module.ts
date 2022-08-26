@@ -40,6 +40,13 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from 'primeng/menu';
 import {StepsModule} from 'primeng/steps';
 import { ChipModule } from 'primeng/chip';
+import { ProgressBarModule } from 'primeng/progressbar';
+import {ContextMenuModule} from 'primeng/contextmenu';
+import {RatingModule} from 'primeng/rating';
+import {PanelModule} from 'primeng/panel';
+
+
+
 @NgModule({
   imports: [
     FormsModule,
@@ -51,7 +58,30 @@ import { ChipModule } from 'primeng/chip';
     CheckboxModule,
     CardModule,
     SidebarModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule,
+    TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+		MultiSelectModule,
+		ContextMenuModule,
+		DropdownModule,
+		ButtonModule,
+		ToastModule,
+    InputTextModule,
+    ProgressBarModule,
+    FileUploadModule,
+    ToolbarModule,
+    RatingModule,
+    FormsModule,
+    RadioButtonModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    InputTextareaModule,
+    PanelModule,
+    TabViewModule,
+    DropdownModule
   ],
   exports: [
     FormsModule,
@@ -63,7 +93,31 @@ import { ChipModule } from 'primeng/chip';
     CheckboxModule,
     CardModule,
     SidebarModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    ToastModule,
+    TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+		MultiSelectModule,
+		ContextMenuModule,
+		DropdownModule,
+		ButtonModule,
+		ToastModule,
+    InputTextModule,
+    ProgressBarModule,
+    FileUploadModule,
+    ToolbarModule,
+    RatingModule,
+    FormsModule,
+    RadioButtonModule,
+    InputNumberModule,
+    ConfirmDialogModule,
+    InputTextareaModule,
+    PanelModule,
+    TabViewModule,
+    DropdownModule
   ],
+  providers:[ConfirmationService,MessageService]
 })
 export class sharedModule {}
