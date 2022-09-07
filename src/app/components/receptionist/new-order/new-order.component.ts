@@ -1,8 +1,9 @@
+import { studentDemand } from '../../../model/studentDemand';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StudentServiceService } from './../../../shared/services/student-service/student-service.service';
-import { service } from './../../../model/service';
+import { service } from '../../../model/service';
 import { CollageService } from './../../../shared/services/collage/collage.service';
-import { collage } from './../../../model/collage';
+import { collage } from '../../../model/collage';
 import { studentDemandService } from './../../../shared/services/student-demand/student-demand.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,6 +15,10 @@ import { Component, OnInit } from '@angular/core';
 export class NewOrderComponent implements OnInit {
   isNew: boolean = false;
 
+  //agency
+  isAgency: boolean = false;
+  options = [{ name: 'المقدم نفسه' }, { name: 'وكالة' }];
+  selectedOption!: string;
   collages!: collage[];
   selectedCollage!: collage;
 
@@ -21,7 +26,7 @@ export class NewOrderComponent implements OnInit {
   selectedService!: service;
 
   studentDemandForm: any;
-
+  studentDemand: studentDemand = {};
   constructor(
     private studentDemandSer: studentDemandService,
     private CollageSer: CollageService,
@@ -43,6 +48,9 @@ export class NewOrderComponent implements OnInit {
         is_Automated_Work: ['', Validators.required],
         execution_Period_Duration: ['', Validators.required],
       },
+      agency_Source: [''],
+      agency_No: [''],
+      agency_Date: [''],
     });
   }
 
@@ -52,14 +60,14 @@ export class NewOrderComponent implements OnInit {
     let id = {
       student_Demand_National_ID: event.target.value,
     };
-    console.log(id);
-    
+    // console.log(id);
+
     if (event.target.value) {
       this.studentDemandSer.checkNationalID(id).subscribe((res) => {
         console.log(res);
-        
+
         if (res.Result != null) {
-          console.log(res);
+          // console.log(res);
           //here update input with response
           this.isNew = false;
         } else {
@@ -71,15 +79,24 @@ export class NewOrderComponent implements OnInit {
 
   getCollages() {
     this.CollageSer.getAllCollages().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.collages = res;
     });
   }
 
   getServices() {
     this.StudentServiceSer.getAllServices().subscribe((res) => {
-      console.log(res);
+      // console.log(res);
       this.services = res;
     });
+  }
+
+  addDemand(demand: any) {
+    this.studentDemandSer.addDemand(demand).subscribe((res) => {});
+  }
+
+  onChange(value: any) {
+    if (value.value.name == 'وكالة') this.isAgency = true;
+    else this.isAgency = false;
   }
 }

@@ -7,10 +7,7 @@
         <p-toolbar styleClass="mb-4">
             <ng-template pTemplate="right">
                 <button pButton pRipple label="جديد" icon="pi pi-plus" class="p-button-success mr-2"
-                    (click)="newAccount()"></button>&nbsp;&nbsp;
-                <button pButton pRipple label="حذف" icon="pi pi-trash" class="p-button-danger"
-                    (click)="deleteSelectedProducts()"
-                    [disabled]="!selectedAccounts || !selectedAccounts.length"></button>
+                    (click)="openNewAccountDialog('newAccount')"></button>&nbsp;&nbsp;
             </ng-template>
         </p-toolbar>
 
@@ -21,13 +18,13 @@
         'User_Name',
         'Collage_FK',
         'User_Type'
-      ]" responsiveLayout="scroll" [(selection)]="selectedAccounts" [rowHover]="true" dataKey="id"
+      ]" responsiveLayout="scroll" [responsive]="true" [rowHover]="true" dataKey="id"
             currentPageReportTemplate="اظهار {first} من {last}" [showCurrentPageReport]="true">
             <ng-template pTemplate="caption">
                 <div class="flex align-items-center justify-content-between">
                     <span class="p-input-icon-right">
                         <i class="pi pi-search"></i>
-                        <input pInputText type="text" placeholder=" بحث حسب الاسم..." />
+                        <input pInputText type="text" placeholder="بحث حسب الاسم..." />
                     </span>
                 </div>
             </ng-template>
@@ -83,41 +80,42 @@
 
 <p-dialog [(visible)]="accountDialog" [style]="{ width: '450px' }" header="تفاصيل الحساب" [modal]="true"
     styleClass="p-fluid">
-    <ng-template pTemplate="content" style="text-align: right" dir="rtl">
+    <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
+    <form [formGroup]="userForm" style="text-align: right" dir="rtl">
         <div class="field">
             <label for="name">الاسم الاول</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.User_First_FirstName" required autofocus />
-            <small class="p-error" *ngIf="submitted && !account.User_First_FirstName">الاسم الاول مطلوب</small>
+            <input formControlName="User_First_FirstName" type="text" pInputText id="name"  />
         </div>
         <div class="field">
             <label for="name">الاسم الاخير</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.User_First_LastName" required autofocus />
-            <small class="p-error" *ngIf="submitted && !account.User_First_LastName">الاسم الاخير مطلوب</small>
+            <input formControlName="User_First_LastName" type="text" pInputText id="name"  />
         </div>
         <div class="field">
             <label for="name">اسم المستخدم</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.User_Name" required autofocus />
-            <small class="p-error" *ngIf="submitted && !account.User_Name">اسم المستخدم مطلوب</small>
+            <input formControlName="User_Name" type="text" pInputText id="name"  />
         </div>
         <div class="field">
             <label for="name">كلمة المرور</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.User_Password" required autofocus />
-            <small class="p-error" *ngIf="submitted && !account.User_Password">كلمة السر مطلوبة</small>
+            <input formControlName="User_Password" type="text" pInputText id="name"  />
         </div>
         <div class="field">
             <label for="name">رقم الجامعة</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.Collage_FK" />
+            <input formControlName="Collage_FK" type="text" pInputText id="name" />
         </div>
         <div class="field">
             <label for="name">نوع المستخدم</label>
-            <input type="text" pInputText id="name" [(ngModel)]="account.User_Type" required autofocus />
-            <small class="p-error" *ngIf="submitted && !account.User_Type">نوع المستخدم مطلوب</small>
+            <input formControlName="User_Type" type="text" pInputText id="name"  />
         </div>
-    </ng-template>
+    </form>
+    <!-- </ng-template> -->
 
     <ng-template pTemplate="footer">
-        <button pButton pRipple label="الغاء" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
-        <button pButton pRipple label="حفظ" icon="pi pi-check" class="p-button-text" (click)="saveAccount()"></button>
+        <form [formGroup]="userForm">
+            <button pButton pRipple label="الغاء" icon="pi pi-times" class="p-button-text"
+                (click)="hideDialog()"></button>
+            <button pButton pRipple label="حفظ" icon="pi pi-check" class="p-button-text"
+                (click)="addAccount(userForm.value)"></button>
+        </form>
     </ng-template>
 </p-dialog>
 

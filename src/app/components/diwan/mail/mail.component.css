@@ -1,0 +1,8 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    text-align: right !important;
+}
+
+:host ::ng-deep .table {
+    direction: rtl;
+    text-align: right;
+}

@@ -8,24 +8,36 @@
 } */
 
 :host ::ng-deep .field {
-    
+
     padding-bottom: 15px !important;
 }
 
-:host ::ng-deep .p-dropdown{
+:host ::ng-deep .p-dropdown {
     width: 206.8px;
 }
 
-:host ::ng-deep .p-panel{
+:host ::ng-deep .p-panel {
     padding-bottom: 15px;
 }
 
-td{
+td {
     text-align: right;
     width: 50vw;
     vertical-align: top;
 }
 
-tr{
+tr {
+    width: 100% !important;
+}
+
+:host ::ng-deep .col-6 {
+    padding-bottom: 10px;
+}
+
+.details {
+    width: 100%;
+}
+
+:host ::ng-deep .p-dropdown{
     width: 100% !important;
 }

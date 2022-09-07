@@ -1,4 +1,5 @@
-import { Account } from './../../model/account';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Account } from '../../model/account';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { accountManagementService } from './../../shared/services/account-management/account-management.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,15 +12,24 @@ import { Component, OnInit } from '@angular/core';
 export class AdminComponent implements OnInit {
   account!: Account;
   accounts!: Account[];
-  submitted!: boolean;
   accountDialog!: boolean;
-  selectedAccounts!: Account[];
+  userForm!: FormGroup;
+
   constructor(
+    private fb: FormBuilder,
     private accountManagementSer: accountManagementService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService
-  ) {}
-
+  ) {
+    this.userForm = this.fb.group({
+      User_Name: ['', [Validators.required]],
+      User_Password: ['', [Validators.required]],
+      User_First_FirstName: ['', [Validators.required]],
+      User_First_LastName: ['', [Validators.required]],
+      Collage_FK: [''],
+      User_Type: ['', [Validators.required]]
+    });
+  }
   ngOnInit() {
     this.getAllAccounts();
   }
@@ -30,67 +40,35 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  newAccount() {
-    this.account = {};
-    this.submitted = false;
+  openNewAccountDialog(action: any) {
+    if ((action = 'newAccount')) {
+      this.account = {};
+    }
     this.accountDialog = true;
   }
 
-  deleteSelectedProducts() {
-    this.confirmationService.confirm({
-      message: 'هل انت متأكد من حذف الحسابات المحددة ؟',
-      header: 'تأكيد عملية الحذف',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.accounts = this.accounts.filter(
-          (val) => !this.selectedAccounts.includes(val)
-        );
-        this.selectedAccounts = [];
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'Products Deleted',
-          life: 3000,
-        });
-      },
-    });
-  }
-
-  saveAccount() {
-    this.submitted = true;
-
-    if (
-      this.account?.User_First_FirstName?.trim() &&
-      this.account?.User_First_LastName?.trim()
-    ) {
-      if (this.account.User_ID) {
-        this.accounts[this.findIndexById(this.account.User_ID)] = this.account;
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'تم تحديث محتويات الحساب',
-          life: 3000,
-        });
+  addAccount(account: any) {
+    this.accounts.forEach((element) => {
+      //edit account details
+      if (element.User_ID == account.User_ID) {
       } else {
-        // this.account.User_ID = this.createId();
-        this.accounts.push(this.account);
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'تم اضافة الحساب',
-          life: 3000,
+        //add new account
+        this.accountManagementSer.addAccount(account).subscribe((res) => {
+          this.accounts.push(this.account);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'تم اضافة الحساب',
+            life: 3000,
+          });
+          this.accountDialog = false;
         });
       }
-
-      this.accounts = [...this.accounts];
-      this.accountDialog = false;
-      this.account = {};
-    }
+    });
   }
 
   hideDialog() {
     this.accountDialog = false;
-    this.submitted = false;
   }
 
   findIndexById(id: string): number {
@@ -111,22 +89,48 @@ export class AdminComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.accounts = this.accounts.filter(
-          (val) => val.User_ID !== account.User_ID
+        this.accountManagementSer.deleteAccount(account.User_ID).subscribe(
+          (res) => {
+            this.accounts = this.accounts.filter(
+              (val) => val.User_ID !== account.User_ID
+            );
+            this.account = {};
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'تم حذف الحساب',
+              life: 3000,
+            });
+          },
+          (err) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'error',
+              detail: 'لم يتم حذف الحساب',
+              life: 3000,
+            });
+          }
         );
-        this.account = {};
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'تم حذف الحساب',
-          life: 3000,
-        });
       },
     });
   }
 
   editAccount(account: Account) {
-    this.account = {...account};
     this.accountDialog = true;
+    this.accounts.forEach((element) => {
+      if (element.User_ID == account.User_ID) {
+        this.userForm.controls['User_Name'].setValue(account.User_Name);
+        this.userForm.controls['Collage_FK'].setValue(account.Collage_FK);
+        this.userForm.controls['User_First_FirstName'].setValue(
+          account.User_First_FirstName
+        );
+        this.userForm.controls['User_First_LastName'].setValue(
+          account.User_First_LastName
+        );
+        this.userForm.controls['User_ID'].setValue(account?.User_ID);
+        this.userForm.controls['User_Password'].setValue(account.User_Password);
+        this.userForm.controls['User_Type'].setValue(account.User_Type);
+      }
+    });
   }
 }

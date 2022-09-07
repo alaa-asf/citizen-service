@@ -1,6 +1,7 @@
 <div class="main">
   <div class="spinner" *ngIf="showSpinner">
-    <p-progressSpinner  [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8" animationDuration=".5s"></p-progressSpinner>
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" styleClass="custom-spinner" strokeWidth="8"
+      animationDuration=".5s"></p-progressSpinner>
     <p>الرجاء الانتظار...</p>
   </div>
   <p-card class="card" *ngIf="showLogInForm">
@@ -10,32 +11,34 @@
     </ng-template>
     <div class="content">
       <form [formGroup]="userForm">
-      <div class="grid p-fluid">
-        <div class="col-12 md:col-12">
+        <div class="grid p-fluid">
+          <div class="col-12 md:col-12">
             <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input class="p-inputtext-lg" formControlName="user_Name" type="text" pInputText placeholder="اسم المستخدم">         
+              <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+              <input class="p-inputtext-lg" formControlName="user_Name" type="text" pInputText
+                placeholder="اسم المستخدم">
             </div>
-        </div>
-        
-        <div class="col-12 md:col-12">
-            <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
-                <input class="p-inputtext-lg" formControlName="user_Password" type="password" pInputText placeholder="كلمة المرور">      
-            </div>
-        </div>
-        <div class="col-12 md:col-12" *ngIf="errorLogIn">
-          <div class="p-inputgroup invalid-feedback">
-              <p>اسم المستخدم او كلمة المرور غير صحيحتين ، الرجاء المحاولة مرة أخرى</p>
           </div>
-      </div>
-      <div class="col-12 md:col-12" *ngIf="errorconn">
-        <div class="p-inputgroup invalid-feedback">
-            <p>تأكد من الاتصال بشبكة الانترنيت</p>
+
+          <div class="col-12 md:col-12">
+            <div class="p-inputgroup">
+              <span class="p-inputgroup-addon"><i class="pi pi-key"></i></span>
+              <input class="p-inputtext-lg" formControlName="user_Password" type="password" pInputText
+                placeholder="كلمة المرور">
+            </div>
+          </div>
+          <div class="col-12 md:col-12" *ngIf="errorLogIn">
+            <div class="p-inputgroup invalid-feedback">
+              <p>اسم المستخدم او كلمة المرور غير صحيحتين ، الرجاء المحاولة مرة أخرى</p>
+            </div>
+          </div>
+          <div class="col-12 md:col-12" *ngIf="errorconn">
+            <div class="p-inputgroup invalid-feedback">
+              <p>تأكد من الاتصال بشبكة الانترنيت</p>
+            </div>
+          </div>
         </div>
-    </div>
-    </div>
-  </form>
+      </form>
     </div>
     <ng-template pTemplate="footer">
       <button pButton type="button" label="تسجيل الدخول" (click)="logIn(userForm.value)"></button>

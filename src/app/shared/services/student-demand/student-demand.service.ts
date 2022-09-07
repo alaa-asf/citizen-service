@@ -11,4 +11,8 @@ export class studentDemandService {
   checkNationalID(demand: any) {
     return this.http.post<any>(this.url + '/api/Student_Demand/CheckifNationalNumberExist', demand);
   }
+
+  addDemand(demand:any){
+    return this.http.post<any>(this.url + '/api/Student_Demand', demand);
+  }
 }

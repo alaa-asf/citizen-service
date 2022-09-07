@@ -2,6 +2,7 @@ import { accountManagementService } from './../../shared/services/account-manage
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Account } from 'src/app/model/account';
 
 @Component({
   selector: 'login',
@@ -13,7 +14,7 @@ export class logInComponent implements OnInit {
   showLogInForm: boolean = true;
   errorLogIn: boolean = false;
   errorconn: boolean = false;
-  account: any;
+  account?: Account;
   userForm;
   constructor(
     private fb: FormBuilder,
@@ -23,11 +24,14 @@ export class logInComponent implements OnInit {
     this.userForm = this.fb.group({
       user_Name: ['', Validators.required],
       user_Password: ['', Validators.required],
+      user_First_FirstName: '',
+      user_First_LastName: '',
+      collage_FK: 0,
+      user_Type: '',
     });
   }
 
   ngOnInit() {
-    // this.getAllAccounts();
   }
 
   logIn(accountInfo: any) {
@@ -35,19 +39,19 @@ export class logInComponent implements OnInit {
     this.showSpinner = true;
     this.accountManagementSer.logIn(accountInfo).subscribe(
       (res) => {
-        this.account=res.Result;
+        this.account = res.Result;
         if (res?.Result != null) {
           console.log('in if');
-          let accountrole = this.account.User_Type;
+          let accountrole = this.account?.User_Type;
           console.log(accountrole);
           switch (accountrole) {
             case 'admin':
               this.router.navigate(['admin']);
               break;
-            case 'Receptionist':
+            case 'receptionist':
               this.router.navigate(['receptionist']);
               break;
-            case 'Entry':
+            case 'entry':
               this.router.navigate(['entry']);
               break;
             case 'diwan':
@@ -73,10 +77,4 @@ export class logInComponent implements OnInit {
     // this.showSpinner = true;
     // this.router.navigate(['main']);
   }
-
-  // getAllAccounts() {
-  //   this.accountManagementSer.getAllAccount().subscribe((data) => {
-  //     this.account = data;
-  //   });
-  // }
 }

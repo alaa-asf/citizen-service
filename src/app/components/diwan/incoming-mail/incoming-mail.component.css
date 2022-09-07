@@ -1,6 +1,9 @@
-.row{
+:host ::ng-deep .p-panel{
     direction: rtl;
-    text-align: right;
+}
+
+:host ::ng-deep .p-inputgroup{
+    padding-bottom: 15px;
 }
 
 :host ::ng-deep .table {

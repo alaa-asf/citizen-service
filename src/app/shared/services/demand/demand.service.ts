@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class accountManagementService {
+export class DemandService {
   url: string = 'https://localhost:7183';
   constructor(private http: HttpClient) {}
 
-  getAllAccount() {
-    return this.http.get<any>(this.url + '/api/User');
+  getAllDemands() {
+    return this.http.get<any>(this.url + '/api/Demand');
   }
 
   logIn(account: any) {

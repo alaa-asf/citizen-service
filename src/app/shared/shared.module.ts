@@ -49,6 +49,7 @@ import {PanelModule} from 'primeng/panel';
 
 @NgModule({
   imports: [
+    CalendarModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -81,9 +82,11 @@ import {PanelModule} from 'primeng/panel';
     InputTextareaModule,
     PanelModule,
     TabViewModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ],
   exports: [
+    CalendarModule,
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
@@ -116,7 +119,8 @@ import {PanelModule} from 'primeng/panel';
     InputTextareaModule,
     PanelModule,
     TabViewModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ],
   providers:[ConfirmationService,MessageService]
 })
