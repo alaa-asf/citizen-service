@@ -30,4 +30,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 <br/>
 ## second: npm i
 <br/>
-### third: ng s --o
+## third: ng s --o
