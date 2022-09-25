@@ -28,6 +28,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 # first : git clone https://github.com/alaa-asf/citizen-service.git
 <br/>
-## second: npm i
+## second: 
+npm i
 <br/>
-## third: ng s --o
+## third:
+ ng s --o
