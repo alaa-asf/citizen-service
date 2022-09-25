@@ -1,11 +1,13 @@
+import { DemandService } from './../../../shared/services/demand/demand.service';
+import { demand } from './../../../model/demand';
 import { studentDemand } from '../../../model/studentDemand';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StudentServiceService } from './../../../shared/services/student-service/student-service.service';
 import { service } from '../../../model/service';
-import { CollageService } from './../../../shared/services/collage/collage.service';
 import { collage } from '../../../model/collage';
 import { studentDemandService } from './../../../shared/services/student-demand/student-demand.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DocumentRequired } from 'src/app/model/documentRequired';
 
 @Component({
   selector: 'app-new-order',
@@ -13,90 +15,133 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-order.component.css'],
 })
 export class NewOrderComponent implements OnInit {
+
+  //collages
+  @Input() collages!: collage[];
+  selectedCollage!: collage;
+  //services
+  @Input() services!: service[];
+  selectedService!: service;
+  DocumentRequired!: DocumentRequired[];
+
+  //check if student is new
   isNew: boolean = false;
 
-  //agency
+  //agency or not
   isAgency: boolean = false;
   options = [{ name: 'المقدم نفسه' }, { name: 'وكالة' }];
-  selectedOption!: string;
-  collages!: collage[];
-  selectedCollage!: collage;
-
-  services!: service[];
-  selectedService!: service;
 
   studentDemandForm: any;
+  demandForm: any;
   studentDemand: studentDemand = {};
+  demand: demand = {};
+  myDate = new Date();
   constructor(
     private studentDemandSer: studentDemandService,
-    private CollageSer: CollageService,
     private StudentServiceSer: StudentServiceService,
-    private fb: FormBuilder
+    private DemandSer: DemandService,
+    private fb: FormBuilder,
   ) {
-    this.getCollages();
-    this.getServices();
     this.studentDemandForm = this.fb.group({
-      student_Demand_ID: ['', Validators.required],
       student_Demand_FirstName: ['', Validators.required],
       student_Demand_LastName: ['', Validators.required],
       student_Demand_National_ID: ['', Validators.required],
       student_Demand_Univercity_Number: ['', Validators.required],
-      collage_FK: ['', Validators.required],
-      collage: {
-        collage_ID: ['', Validators.required],
-        collage_Name: ['', Validators.required],
-        is_Automated_Work: ['', Validators.required],
-        execution_Period_Duration: ['', Validators.required],
-      },
+      collage_FK: [''],
+    });
+
+    this.demandForm = this.fb.group({
+      Student_Demand_FK: [''],
+      demand_Date: [''],
+      demand_Barcode: [''],
+      demand_Status: [''],
+      demand_Result: [''],
+      demand_Applicant_Type: [''],
       agency_Source: [''],
       agency_No: [''],
       agency_Date: [''],
-    });
+      destination_Collage_FK: [''],
+      service_FK: [''],
+    })
   }
+  ngOnInit() {
 
-  ngOnInit() {}
+
+  }
 
   changeNationalID(event: any) {
     let id = {
       student_Demand_National_ID: event.target.value,
     };
-    // console.log(id);
 
     if (event.target.value) {
       this.studentDemandSer.checkNationalID(id).subscribe((res) => {
-        console.log(res);
-
-        if (res.Result != null) {
-          // console.log(res);
-          //here update input with response
+        if (
+          res.Result != null &&
+          id.student_Demand_National_ID ==
+          res.Result[0].Student_Demand_National_ID
+        ) {
+          //old student
           this.isNew = false;
+          this.studentDemandForm.controls.student_Demand_National_ID.setValue(
+            res.Result[0].Student_Demand_National_ID
+          );
+          this.studentDemandForm.controls.student_Demand_FirstName.setValue(
+            res.Result[0].Student_Demand_FirstName
+          );
+          this.studentDemandForm.controls.student_Demand_LastName.setValue(
+            res.Result[0].Student_Demand_LastName
+          );
+          this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(res.Result[0].Student_Demand_Univercity_Number);
+          this.selectedCollage = res.Result[0].Collage;
+          this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
+
         } else {
           this.isNew = true;
+
+          // this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(null);
+          // this.studentDemandForm.controls.collage.setValue(null);
+          // this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
         }
       });
     }
   }
 
-  getCollages() {
-    this.CollageSer.getAllCollages().subscribe((res) => {
-      // console.log(res);
-      this.collages = res;
+  addDemand(studentDemand: any) {
+    this.studentDemandSer.addStudentDemand(studentDemand).subscribe((res) => {
+      this.demandForm.controls.Student_Demand_FK.setValue(res.Result.Student_Demand_ID);
+      this.demandForm.controls.demand_Date.setValue(this.myDate);
+      this.demandForm.controls.demand_Status.setValue('جديد');
+      this.demandForm.controls.demand_Result.setValue('لم يتم');
+      this.demandForm.controls.destination_Collage_FK.setValue(res.Result.Collage_FK);
+      this.demandForm.controls.service_FK.setValue(this.selectedService.Service_ID);
+
+      this.DemandSer.addDemand(this.demandForm.value).subscribe(res => {
+        // this.DemandSer.getAllDemands().subscribe((data) => {
+        //   this.demands = data.Result;
+        // });
+      })
     });
   }
 
-  getServices() {
-    this.StudentServiceSer.getAllServices().subscribe((res) => {
-      // console.log(res);
-      this.services = res;
+  onChangeAgency(value: any) {
+    if (value.value.name == 'وكالة') {
+      this.isAgency = true;
+      this.demandForm.controls.demand_Applicant_Type.setValue('وكالة')
+    } else {
+      this.isAgency = false;
+      this.demandForm.controls.demand_Applicant_Type.setValue('صاحب العلاقة نفسه')
+      this.demandForm.controls.agency_No.setValue(null);
+      this.demandForm.controls.agency_Date.setValue(null);
+      this.demandForm.controls.agency_Source.setValue(null);
+    }
+  }
+
+  onChangeService(serviceId: any) {
+    this.StudentServiceSer.getDocumentRequire(
+      serviceId.value.Service_ID
+    ).subscribe((res) => {
+      this.DocumentRequired = res.Result;
     });
-  }
-
-  addDemand(demand: any) {
-    this.studentDemandSer.addDemand(demand).subscribe((res) => {});
-  }
-
-  onChange(value: any) {
-    if (value.value.name == 'وكالة') this.isAgency = true;
-    else this.isAgency = false;
   }
 }

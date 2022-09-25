@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./diwan.component.css']
 })
 export class DiwanComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {

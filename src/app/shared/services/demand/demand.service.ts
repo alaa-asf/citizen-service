@@ -1,30 +1,32 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+import { BaseComponent } from '../../components/base.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DemandService {
-  url: string = 'https://localhost:7183';
-  constructor(private http: HttpClient) {}
+export class DemandService extends BaseComponent {
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
   getAllDemands() {
-    return this.http.get<any>(this.url + '/api/Demand');
+    return this.HttpClient.get<any>(this.url + '/api/Demand');
   }
 
-  logIn(account: any) {
-    return this.http.post<any>(this.url + '/api/User/login', account);
+  deleteDemand(demandId: any) {
+    return this.HttpClient.delete<any>(this.url + `/api/Demand/${demandId}`);
   }
 
-  deleteAccount(accountId: any) {
-    return this.http.delete<any>(this.url + `/api/User/${accountId}`);
+  addDemand(demand: any) {
+    return this.HttpClient.post<any>(this.url + '/api/Demand', demand);
   }
 
-  addAccount(account: any) {
-    return this.http.post<any>(this.url + '/api/User', account);
+  editAccount(demandId: any, demand: any) {
+    return this.HttpClient.put<any>(this.url + `/api/Demand/?id=${demandId}`, demand);
   }
 
-  editAccount(accountId: any, account: any) {
-    return this.http.put<any>(this.url + `/api/User/?id=${accountId}`, account);
+  getSearchDemand(options: any) {
+    return this.HttpClient.post<any>(this.url + '/api/Demand/Search', options);
   }
+  
 }

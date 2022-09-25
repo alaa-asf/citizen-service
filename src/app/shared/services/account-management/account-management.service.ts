@@ -1,30 +1,31 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+import { BaseComponent } from '../../components/base.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class accountManagementService {
-  url: string = 'https://localhost:7183';
-  constructor(private http: HttpClient) {}
+export class accountManagementService extends BaseComponent {
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
   getAllAccount() {
-    return this.http.get<any>(this.url + '/api/User');
+    return this.HttpClient.get<any>(this.url + '/api/User');
   }
 
   logIn(account: any) {
-    return this.http.post<any>(this.url + '/api/User/login', account);
+    return this.HttpClient.post<any>(this.url + '/api/User/login', account);
   }
 
   deleteAccount(accountId: any) {
-    return this.http.delete<any>(this.url + `/api/User/${accountId}`);
+    return this.HttpClient.delete<any>(this.url + `/api/User/${accountId}`);
   }
 
   addAccount(account: any) {
-    return this.http.post<any>(this.url + '/api/User', account);
+    return this.HttpClient.post<any>(this.url + '/api/User', account);
   }
 
   editAccount(accountId: any, account: any) {
-    return this.http.put<any>(this.url + `/api/User/?id=${accountId}`, account);
+    return this.HttpClient.put<any>(this.url + `/api/User/${accountId}`, account);
   }
 }

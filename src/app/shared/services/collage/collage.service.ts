@@ -1,13 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+import { BaseComponent } from '../../components/base.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CollageService {
-  url: string = 'https://localhost:7183';
-  constructor(private http: HttpClient) {}
-  getAllCollages(){
-    return this.http.get<any>(this.url + '/api/Collage');
+export class CollageService extends BaseComponent {
+  constructor(injector: Injector) {
+    super(injector);
+  }
+  getAllCollages() {
+    return this.HttpClient.get<any>(this.url + '/api/Collage');
+  }
+
+  deleteCollage(collageId: any) {
+    return this.HttpClient.delete<any>(this.url + `/api/Collage/${collageId}`);
+  }
+
+  addCollage(collage: any) {
+    return this.HttpClient.post<any>(this.url + '/api/Collage', collage);
+  }
+
+  editCollage(collageId: any, collage: any) {
+    return this.HttpClient.put<any>(this.url + `/api/Collage/${collageId}`, collage);
   }
 }

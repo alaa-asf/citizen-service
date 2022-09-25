@@ -41,9 +41,7 @@ export class logInComponent implements OnInit {
       (res) => {
         this.account = res.Result;
         if (res?.Result != null) {
-          console.log('in if');
           let accountrole = this.account?.User_Type;
-          console.log(accountrole);
           switch (accountrole) {
             case 'admin':
               this.router.navigate(['admin']);
@@ -56,6 +54,9 @@ export class logInComponent implements OnInit {
               break;
             case 'diwan':
               this.router.navigate(['diwan']);
+              break;
+            case 'collage-record':
+              this.router.navigate(['collage-record']);
               break;
             default:
               this.router.navigate(['']);

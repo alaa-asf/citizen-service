@@ -15,8 +15,8 @@ const routes: Routes = [
       loadChildren: () => import('./components/receptionist/receptionist.module').then(m => m.ReceptionistModule)
     },
     {
-      path: 'entry',
-      loadChildren: () => import('./components/entry/entry.module').then(m => m.EntryModule)
+      path: 'students-affairs',
+      loadChildren: () => import('./components/students-affairs/students-affairs.module').then(m => m.studentsAffairsModule)
     },
     {
       path: 'diwan',
@@ -25,6 +25,14 @@ const routes: Routes = [
     {
       path: 'admin',
       loadChildren: () => import('./components/admin/admin.module').then(m => m.AdminModule)
+    },
+    {
+      path: 'exams',
+      loadChildren: () => import('./components/exams/exams.module').then(m => m.examsModule)
+    },
+    {
+      path:'collage-record',
+      loadChildren: () => import('./components/collage-record/collage-record.module').then(m => m.CollageRecordModule)
     },
     { path: '', redirectTo: '', pathMatch: 'full'},
     { path: '**', redirectTo: ''}

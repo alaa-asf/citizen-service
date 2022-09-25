@@ -1,40 +1,54 @@
+import { collage } from './../../../model/collage';
+import { service } from './../../../model/service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { demand } from './../../../model/demand';
 import { DemandService } from './../../../shared/services/demand/demand.service';
-import { Component, OnInit } from '@angular/core';
-
+import { Component, Input, OnInit } from '@angular/core';
+// import * as moment from 'moment';
 @Component({
   selector: 'app-all-order',
   templateUrl: './all-order.component.html',
   styleUrls: ['./all-order.component.css'],
 })
 export class AllOrderComponent implements OnInit {
-  demands!: demand[];
+  @Input() collages!: collage[];
+  @Input() services!: service[];
+  @Input() demands!: demand[];
+
   //Filter
   dateStart!: Date;
   dateEnd!: Date;
-  selectedCollage!: string;
   selectedId!: string;
-  selectedService!: string;
-  filterForm:FormGroup;
-  constructor(private DemandSer: DemandService, private fb: FormBuilder) {
-    this.filterForm=this.fb.group({
-      dateFrom:[''],
-      dateTo:[''],
-      collage:[''],
-      service:[''],
-      id:['']
-    })
-  }
+  filterForm!: FormGroup;
+
+  selectedService!: service;
+  selectedCollage!: collage;
+  constructor(private DemandSer: DemandService, private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.DemandSer.getAllDemands().subscribe((data) => {
-      // console.log(data);
-      this.demands = [data];
+    this.filterForm = this.fb.group({
+      first_Demand_Date: [''],
+      last_Demand_Date: [''],
+      selectedId: [''],
+      selectedNationalId: [''],
+      selectedCollage: [''],
+      selectedService: ['']
     });
   }
 
   applyFilter(content: any) {
-    console.log(content);
+    this.DemandSer.getSearchDemand(content).subscribe((data) => {
+      this.demands = data.Result;
+    });
   }
+
+  selectDate(event: any, status: any) {
+    switch (status) {
+      case 'start':
+        break;
+      case 'end':
+        break;
+    }
+  }
+
 }

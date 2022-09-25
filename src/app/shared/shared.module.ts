@@ -34,12 +34,11 @@ import { ListboxModule } from 'primeng/listbox';
 import { PaginatorModule } from 'primeng/paginator';
 import { TreeModule } from 'primeng/tree';
 import { SkeletonModule } from 'primeng/skeleton';
-import { ChipsModule } from 'primeng/chips';
 import { SidebarModule } from 'primeng/sidebar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { MenuModule } from 'primeng/menu';
 import {StepsModule} from 'primeng/steps';
-import { ChipModule } from 'primeng/chip';
+import {ChipsModule} from 'primeng/chips';
 import { ProgressBarModule } from 'primeng/progressbar';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {RatingModule} from 'primeng/rating';
@@ -83,7 +82,8 @@ import {PanelModule} from 'primeng/panel';
     PanelModule,
     TabViewModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    ChipsModule
   ],
   exports: [
     CalendarModule,
@@ -120,7 +120,8 @@ import {PanelModule} from 'primeng/panel';
     PanelModule,
     TabViewModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    ChipsModule
   ],
   providers:[ConfirmationService,MessageService]
 })

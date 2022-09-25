@@ -1,0 +1,91 @@
+<p-toast></p-toast>
+<div class="container">
+  <div class="row">
+    <h3 class="m-0">إدارة الكليات</h3>
+  </div>
+  <div class="card">
+    <p-toolbar styleClass="mb-4">
+      <ng-template pTemplate="right">
+        <button pButton pRipple label="جديد" icon="pi pi-plus" class="p-button-success mr-2"
+          (click)="openNewCollageDialog('newCollage')"></button>&nbsp;&nbsp;
+      </ng-template>
+    </p-toolbar>
+
+    <p-table dir="rtl" #dt [value]="collages" [rows]="10" [paginator]="true" [globalFilterFields]="[
+        'Execution_Period_Duration',
+        'Collage_Name',
+        'Is_Automated_Work'
+      ]" responsiveLayout="scroll" [responsive]="true" [rowHover]="true" dataKey="id"
+      currentPageReportTemplate="اظهار {first} من {last}" [showCurrentPageReport]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="Collage_Name">
+            اسم الكلية<p-sortIcon field="Collage_Name"></p-sortIcon>
+          </th>
+          <th pSortableColumn="Execution_Period_Duration">
+            مدة الانجاز<p-sortIcon field="Execution_Period_Duration"></p-sortIcon>
+          </th>
+          <th pSortableColumn="User_Type">
+            هل هي مؤتمتة<p-sortIcon field="Is_Automated_Work"></p-sortIcon>
+          </th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-collage>
+        <tr>
+          <td>{{ collage.Collage_Name }}</td>
+          <td>{{ collage.Execution_Period_Duration }}</td>
+          <td>{{ collage.Is_Automated_Work | changeName}}</td>
+          <td>
+            <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+              (click)="editAccountDialog(collage)"></button>
+            &nbsp;
+            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+              (click)="deleteCollage(collage)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div class="flex align-items-center justify-content-between">
+          <p>لديك اجمالي {{ collages ? collages.length : 0 }} مستخدم</p>
+        </div>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+
+<p-dialog [(visible)]="collageDialog" [style]="{ width: '450px' }" header="تفاصيل الكلية" [modal]="true"
+  styleClass="p-fluid">
+  <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
+  <form [formGroup]="collageForm" style="text-align: right" dir="rtl">
+    <div class="field">
+      <label for="name">اسم الجامعة</label>
+      <input formControlName="Collage_Name" type="text" pInputText id="name" />
+    </div>
+    <div class="field">
+      <label for="name">هل هي مؤتمتة</label>
+      <p-dropdown
+      [options]="options"
+      formControlName="Is_Automated_Work"
+      placeholder="اختر"
+    ></p-dropdown>
+      <!-- <input formControlName="Is_Automated_Work" type="text" pInputText id="name" /> -->
+    </div>
+    <div class="field">
+      <label for="name">مدة الانجاز</label>
+      <input formControlName="Execution_Period_Duration" type="text" pInputText id="name" />
+    </div>
+  </form>
+  <!-- </ng-template> -->
+
+  <ng-template pTemplate="footer">
+      <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"
+        (click)="hideDialog()"></button>
+      <button pButton pRipple label="جديد" icon="pi pi-check" class="btn btn-secondary"
+        (click)="addCollage(collageForm.value)" *ngIf="newAccountButton" [disabled]="!collageForm.valid"></button>
+      <button pButton pRipple label="تعديل" icon="pi pi-check" class="btn btn-secondary" *ngIf="editAccountButton"
+        (click)="editCollage(collageForm.value)" [disabled]="!collageForm.valid"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog></p-confirmDialog>

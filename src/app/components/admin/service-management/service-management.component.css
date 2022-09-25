@@ -1,0 +1,28 @@
+:host ::ng-deep .p-dialog .product-image {
+    width: 150px;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+
+label{
+    padding-bottom: 10px;
+    text-align: right;
+}
+
+:host ::ng-deep .p-dialog-content{
+direction: rtl;
+}
+
+.row{
+    padding: 20px;
+    text-align: right;
+}
+
+li{
+    direction: rtl;
+    text-align: right;
+}
+
+.ul{
+    margin-right: 25px;
+}

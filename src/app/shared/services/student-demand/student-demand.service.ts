@@ -1,18 +1,19 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
+import { BaseComponent } from '../../components/base.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class studentDemandService {
-  url: string = 'https://localhost:7183';
-  constructor(private http: HttpClient) {}
-
-  checkNationalID(demand: any) {
-    return this.http.post<any>(this.url + '/api/Student_Demand/CheckifNationalNumberExist', demand);
+export class studentDemandService extends BaseComponent {
+  constructor(injector: Injector) {
+    super(injector);
   }
 
-  addDemand(demand:any){
-    return this.http.post<any>(this.url + '/api/Student_Demand', demand);
+  checkNationalID(demand: any) {
+    return this.HttpClient.post<any>(this.url + '/api/Student_Demand/CheckifNationalNumberExist', demand);
+  }
+
+  addStudentDemand(demand:any){
+    return this.HttpClient.post<any>(this.url + '/api/Student_Demand', demand);
   }
 }

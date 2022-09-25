@@ -1,0 +1,108 @@
+<p-toast></p-toast>
+<div class="container">
+    <div class="row">
+        <h3 class="m-0">إدارة المستخدمين</h3>
+    </div>
+
+    <div class="card">
+        <p-toolbar styleClass="mb-4">
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="جديد" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="openNewAccountDialog('newAccount')"></button>&nbsp;&nbsp;
+            </ng-template>
+        </p-toolbar>
+
+        <p-table dir="rtl" #dt [value]="accounts" [rows]="10" [paginator]="true" [globalFilterFields]="[
+        'User_ID',
+        'User_First_FirstName',
+        'User_First_LastName',
+        'User_Name',
+        'Collage_FK',
+        'User_Type'
+      ]" responsiveLayout="scroll" [responsive]="true" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="اظهار {first} من {last}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="User_First_FirstName">
+                        الاسم <p-sortIcon field="User_First_FirstName"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="User_Name">
+                        اسم المستخدم<p-sortIcon field="User_Name"></p-sortIcon>
+                    </th>
+                    <th>كلمة المرور</th>
+                    <th pSortableColumn="Collage_FK">
+                        رمز الجامعة<p-sortIcon field="Collage_FK"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="User_Type">
+                        نوع المستخدم<p-sortIcon field="User_Type"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-account>
+                <tr>
+                    <td>
+                        {{ account.User_First_FirstName }} {{ account.User_First_LastName }}
+                    </td>
+                    <td>{{ account.User_Name }}</td>
+                    <td>{{ account.User_Password }}</td>
+                    <td>{{ account.Collage_FK }}</td>
+                    <td>{{ account.User_Type }}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                            (click)="editAccountDialog(account)"></button> &nbsp;
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                            (click)="deleteAccount(account)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    <p>لديك اجمالي {{ accounts ? accounts.length : 0 }} مستخدم</p>
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="accountDialog" [style]="{ width: '450px' }" header="تفاصيل الحساب" [modal]="true"
+    styleClass="p-fluid">
+    <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
+    <form [formGroup]="userForm">
+        <div class="field">
+            <label for="name">الاسم الاول</label>
+            <input formControlName="User_First_FirstName" type="text" pInputText id="name" />
+        </div>
+        <div class="field">
+            <label for="name">الاسم الاخير</label>
+            <input formControlName="User_First_LastName" type="text" pInputText id="name" />
+        </div>
+        <div class="field">
+            <label for="name">اسم المستخدم</label>
+            <input formControlName="User_Name" type="text" pInputText id="name" />
+        </div>
+        <div class="field">
+            <label for="name">كلمة المرور</label>
+            <input formControlName="User_Password" type="text" pInputText id="name" />
+        </div>
+        <div class="field">
+            <label for="name">رقم الجامعة</label>
+            <input formControlName="Collage_FK" type="text" pInputText id="name" />
+        </div>
+        <div class="field">
+            <label for="name">نوع المستخدم</label>
+            <input formControlName="User_Type" type="text" pInputText id="name" />
+        </div>
+    </form>
+    <!-- </ng-template> -->
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"
+            (click)="hideDialog()"></button>
+        <button *ngIf="newAccountButton" pButton pRipple label="جديد" icon="pi pi-check" class="btn btn-secondary"
+            (click)="addAccount(userForm.value)" [disabled]="!userForm.valid"></button>
+        <button *ngIf="editAccountButton" pButton pRipple label="تعديل" icon="pi pi-check" class="btn btn-secondary"
+            (click)="editAccount(userForm.value)" [disabled]="!userForm.valid"></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog>

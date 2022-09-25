@@ -1,0 +1,18 @@
+label {
+    padding-bottom: 10px;
+    text-align: right;
+}
+
+:host ::ng-deep .p-dialog-content {
+    direction: rtl;
+}
+
+.row {
+    padding: 20px;
+    text-align: right;
+}
+
+form {
+    text-align: right;
+    direction: rtl;
+}

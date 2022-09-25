@@ -1,0 +1,88 @@
+<p-toast></p-toast>
+<div class="container">
+    <div class="row">
+        <h3 class="m-0">إدارة الخدمات</h3>
+    </div>
+
+    <div class="card">
+        <p-toolbar styleClass="mb-4">
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="جديد" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="openNewServiceDialog('newService')"></button>&nbsp;&nbsp;
+            </ng-template>
+        </p-toolbar>
+
+        <p-table dir="rtl" #dt [value]="services" [rows]="10" [paginator]="true" [globalFilterFields]="['Service_Name']"
+            responsiveLayout="scroll" [responsive]="true" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="اظهار {first} من {last}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="Service_Name">
+                        اسم الخدمة <p-sortIcon field="Service_Name"></p-sortIcon>
+                    </th>
+                    <th>الاوراق المطلوبة</th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-service>
+                <tr>
+                    <td>
+                        {{ service.Service_Name }}
+                    </td>
+                    <td>
+                        <ol type="number">
+                            <li *ngFor="
+                  let Service_Document_Requireds of service.Service_Document_Requireds
+                ">
+                                {{ Service_Document_Requireds.Document_Required_Service_Name }}
+                            </li>
+                        </ol>
+                    </td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                            (click)="editServiceDialog(service)"></button>
+                        &nbsp;
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                            (click)="deleteService(service)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    <p>لديك اجمالي {{ services ? services.length : 0 }} خدمة</p>
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="serviceDialog" [style]="{ width: '450px' }" header="تفاصيل الحدمة" [modal]="true"
+    styleClass="p-fluid">
+    <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
+    <form [formGroup]="serviceForm">
+        <div class="field">
+            <label for="name">اسم الخدمة</label>
+            <input formControlName="Service_Name" type="text" pInputText id="name" />
+        </div>
+    </form>
+    
+    <form [formGroup]="serviceForm">
+        
+        <div class="field" formGroupName="serviceRequiredForm">
+            <label for="name">اسم الورقة المطلوبة للخدمة</label>
+            <p-chips inputId="chips" formControlName="Document_Required_Service_Name" class="ng-invalid ng-dirty"></p-chips>
+            <span class="text-danger">اضغط enter بعد ادخال كل ورقة</span>
+        </div>
+    </form>
+    <!-- </ng-template> -->
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"
+            (click)="hideDialog()"></button>
+        <button *ngIf="newServiceButton" pButton pRipple label="جديد" icon="pi pi-check" class="btn btn-secondary"
+            (click)="addService(serviceForm.value)" [disabled]="!serviceForm.valid"></button>
+        <button *ngIf="editServiceButton" pButton pRipple label="تعديل" icon="pi pi-check" class="btn btn-secondary"
+            (click)="editService(serviceForm.value)" [disabled]="!serviceForm.valid"></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

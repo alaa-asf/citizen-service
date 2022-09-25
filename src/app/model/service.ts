@@ -1,7 +1,7 @@
 import { DocumentRequired } from "./documentRequired";
 
 export interface service {
-  service_ID?: number;
-  service_Name?: string;
-  service_Document_Required?: DocumentRequired[];
+  Service_ID?: number;
+  Service_Name?: string;
+  Service_Document_Requireds?: DocumentRequired[];
 }

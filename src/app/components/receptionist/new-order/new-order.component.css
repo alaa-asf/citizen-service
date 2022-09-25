@@ -1,19 +1,18 @@
 :host ::ng-deep .p-panel {
     direction: rtl;
+    /* font-size: 24px; */
 }
-
-/* :host ::ng-deep .p-inputtext {
-    display: block;
-    margin-bottom: 1px;
-} */
 
 :host ::ng-deep .field {
 
     padding-bottom: 15px !important;
 }
+input{
+    width: 100%;
+}
 
-:host ::ng-deep .p-dropdown {
-    width: 206.8px;
+label{
+    margin-bottom: 10px;
 }
 
 :host ::ng-deep .p-panel {

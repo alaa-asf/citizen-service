@@ -1,0 +1,19 @@
+:host ::ng-deep .p-panel{
+    direction: rtl;
+}
+
+:host ::ng-deep .p-inputgroup{
+    padding-bottom: 15px;
+}
+
+:host ::ng-deep .table {
+    direction: rtl;
+    text-align: right;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    text-align: right !important;
+}
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+    text-align: right !important;
+}
