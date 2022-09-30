@@ -7,20 +7,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideBarComponent implements OnInit {
   display: boolean = true;
-  // menu=[{
-  //   'name':'',
-  //   'routerLink':''
-  // }]
+  menu = [
+    {
+      name: 'الادمن',
+      routerLink: 'diwan',
+    },
+    {
+      name: 'ديوان مركز الخدمة',
+      routerLink: 'diwan',
+    },
+    {
+      name: 'ديوان الكلية',
+      routerLink: 'collage-record',
+    },
+    {
+      name: 'الامتحانات',
+      routerLink: 'exams',
+    },
+    {
+      name: 'موظف الاستقبال',
+      routerLink: 'receptionist',
+    },
+    {
+      name: 'شؤون الطلاب',
+      routerLink: 'students-affairs',
+    },
+    {
+      name: 'موظف التسليم',
+      routerLink: 'delivery',
+    },
+  ];
   constructor() {}
 
   ngOnInit() {
-    // this.menu.forEach(element => {
-    //   element.name='home';
-    //   element.routerLink='home';
-    // });
-    // this.menu[0].name='home';
-    // this.menu[0].routerLink='home';
-    // this.menu[1].name='customers';
-    // this.menu[1].routerLink='customers';
   }
 }

@@ -55,6 +55,15 @@ export class logInComponent implements OnInit {
             case 'diwan':
               this.router.navigate(['diwan']);
               break;
+            case 'exams':
+              this.router.navigate(['exams']);
+              break;
+            case 'students-affairs':
+              this.router.navigate(['students-affairs']);
+              break;
+            case 'delivery':
+              this.router.navigate(['delivery']);
+              break;
             case 'collage-record':
               this.router.navigate(['collage-record']);
               break;

@@ -31,6 +31,10 @@ const routes: Routes = [
       loadChildren: () => import('./components/exams/exams.module').then(m => m.examsModule)
     },
     {
+      path: 'delivery',
+      loadChildren: () => import('./components/delivery/delivery.module').then(m => m.deliveryModule)
+    },
+    {
       path:'collage-record',
       loadChildren: () => import('./components/collage-record/collage-record.module').then(m => m.CollageRecordModule)
     },

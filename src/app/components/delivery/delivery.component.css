@@ -1,0 +1,22 @@
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    text-align: center !important;
+}
+
+:host ::ng-deep .table {
+    direction: rtl;
+    text-align: right;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+    text-align: center !important;
+}
+
+.row{
+    direction: rtl;
+    text-align: right;
+}
+
+.head{
+    background-color: #6ABAB9;
+    padding: 30px;
+}
