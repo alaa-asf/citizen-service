@@ -1,3 +1,5 @@
+import { CollageService } from './../../../shared/services/collage/collage.service';
+import { collage } from './../../../model/collage';
 import { accountManagementService } from './../../../shared/services/account-management/account-management.service';
 import { Account } from './../../../model/account';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -17,12 +19,15 @@ export class UserManagementComponent implements OnInit {
   newAccountButton!: boolean;
   editAccountButton!: boolean;
   userForm!: FormGroup;
-
+  collages!: collage[];
+  selectedCollage!: collage;
+  errorUserName: boolean = false;
   constructor(
     private fb: FormBuilder,
     private accountManagementSer: accountManagementService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private CollageSer: CollageService
   ) {
     this.userForm = this.fb.group({
       User_Name: ['', [Validators.required]],
@@ -37,6 +42,7 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.getAllAccounts();
+    this.getCollages();
   }
 
   getAllAccounts() {
@@ -60,8 +66,9 @@ export class UserManagementComponent implements OnInit {
   }
 
   addAccount(account: any) {
-    this.accountManagementSer.addAccount(account).subscribe((res) => {
-      this.accounts.push(account);
+    this.userForm.controls['Collage_FK'].setValue(this.selectedCollage?.Collage_ID)
+    this.accountManagementSer.addAccount(this.userForm.value).subscribe((res) => {
+      this.accounts.push(this.userForm.value);
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
@@ -138,4 +145,18 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  getCollages() {
+    this.CollageSer.getAllCollages().subscribe((res) => {
+      this.collages = res;
+    });
+  }
+
+  checkUserName(event: any) {
+    this.errorUserName = false;
+    this.accounts.forEach(element => {
+      if (event.target.value == element.User_Name)
+        this.errorUserName = true;
+    });
+
+  }
 }

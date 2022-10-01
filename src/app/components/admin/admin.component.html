@@ -1,13 +1,20 @@
 <div class="container-fluid">
-    <p-tabView>
-        <p-tabPanel header="ادارة المستخدمين">
-            <app-user-management></app-user-management>
-        </p-tabPanel>
-        <p-tabPanel header="ادارة الكليات">
-            <app-collage-management></app-collage-management>
-        </p-tabPanel>
-        <p-tabPanel header="ادارة الخدمات">
-            <app-service-management></app-service-management>
-        </p-tabPanel>
-    </p-tabView>
+    <div class="row">
+        <div class="col-10">
+            <p-tabView>
+                <p-tabPanel header="ادارة المستخدمين">
+                    <app-user-management></app-user-management>
+                </p-tabPanel>
+                <p-tabPanel header="ادارة الكليات">
+                    <app-collage-management></app-collage-management>
+                </p-tabPanel>
+                <p-tabPanel header="ادارة الخدمات">
+                    <app-service-management></app-service-management>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+        <div class="col-2">
+            <app-side-bar></app-side-bar>
+        </div>
+    </div>
 </div>

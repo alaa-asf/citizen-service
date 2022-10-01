@@ -1,7 +1,7 @@
 <div class="position-sticky pt-3">
   <ul class="nav flex-column">
     <li class="nav-item" *ngFor="let page of menu; index as i;">
-      <a class="nav-link active" aria-current="page" routerLink="/page.routerLink">
+      <a class="nav-link active" aria-current="page" routerLink="/{{page.routerLink}}">
         <span data-feather="home"></span>
         {{page.name}}
       </a>

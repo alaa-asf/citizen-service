@@ -79,16 +79,20 @@
         </div>
         <div class="field">
             <label for="name">اسم المستخدم</label>
-            <input formControlName="User_Name" type="text" pInputText id="name" />
+            <input formControlName="User_Name" type="text" pInputText id="name" (input)="checkUserName($event)"/>
+            <span *ngIf="errorUserName">اسم المستخدم مكرر</span>
         </div>
         <div class="field">
             <label for="name">كلمة المرور</label>
             <input formControlName="User_Password" type="text" pInputText id="name" />
         </div>
-        <div class="field">
-            <label for="name">رقم الجامعة</label>
-            <input formControlName="Collage_FK" type="text" pInputText id="name" />
-        </div>
+    </form>
+    <div class="field">
+        <label for="name">رقم الجامعة</label>
+        <p-dropdown [options]="collages" optionLabel="Collage_Name" [(ngModel)]="selectedCollage"
+            placeholder="اختر كلية"></p-dropdown>
+    </div>
+    <form [formGroup]="userForm">
         <div class="field">
             <label for="name">نوع المستخدم</label>
             <input formControlName="User_Type" type="text" pInputText id="name" />
@@ -100,9 +104,9 @@
         <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"
             (click)="hideDialog()"></button>
         <button *ngIf="newAccountButton" pButton pRipple label="جديد" icon="pi pi-check" class="btn btn-secondary"
-            (click)="addAccount(userForm.value)" [disabled]="!userForm.valid"></button>
+            (click)="addAccount(userForm.value)" [disabled]="!userForm.valid && errorUserName"></button>
         <button *ngIf="editAccountButton" pButton pRipple label="تعديل" icon="pi pi-check" class="btn btn-secondary"
-            (click)="editAccount(userForm.value)" [disabled]="!userForm.valid"></button>
+            (click)="editAccount(userForm.value)" [disabled]="!userForm.valid && errorUserName"></button>
     </ng-template>
 </p-dialog>
 <p-confirmDialog></p-confirmDialog>

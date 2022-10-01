@@ -15,7 +15,7 @@ export class MailComponent implements OnInit {
   demandDetail!: any;
   demandDialog: boolean = false;
   filterForm!: FormGroup;
-  collages!: collage[];
+  collages!: collage[]; 
   selectedCollage!: collage;
   typeOption = [{ name: 'sent' }, { name: 'recive' }]
   constructor(private CollageRecordSer: CollageRecordService, private fb: FormBuilder, private CollageSer: CollageService) {
