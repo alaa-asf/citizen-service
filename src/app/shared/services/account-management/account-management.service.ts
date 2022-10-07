@@ -1,4 +1,5 @@
 import { Injectable, Injector } from '@angular/core';
+import { Account } from 'src/app/shared/model/account';
 import { BaseComponent } from '../../components/base.component';
 
 @Injectable({
@@ -27,5 +28,9 @@ export class accountManagementService extends BaseComponent {
 
   editAccount(accountId: any, account: any) {
     return this.HttpClient.put<any>(this.url + `/api/User/${accountId}`, account);
+  }
+
+  checkAccount(account: Account){
+    return this.HttpClient.post<any>(this.url + '/api/User/CheckIfExist', account);
   }
 }

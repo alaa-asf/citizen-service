@@ -1,6 +1,6 @@
-import { DocumentRequired } from './../../../model/documentRequired';
+import { DocumentRequired } from '../../../shared/model/documentRequired';
 import { StudentServiceService } from './../../../shared/services/student-service/student-service.service';
-import { service } from './../../../model/service';
+import { service } from '../../../shared/model/service';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +19,7 @@ export class ServiceManagementComponent implements OnInit {
   newServiceButton!: boolean;
   editServiceButton!: boolean;
   serviceForm!: FormGroup;
-  serviceRequiredForm!: FormGroup;
+  service_Document_Requireds!: FormGroup;
   values: String[] = [];
 
   constructor(
@@ -30,10 +30,9 @@ export class ServiceManagementComponent implements OnInit {
   ) {
     this.serviceForm = this.fb.group({
       Service_Name: ['', [Validators.required]],
-      Service_ID: [''],
-      serviceRequiredForm: this.fb.group({
+      service_Document_Requireds: this.fb.group({
         Service_FK: [''],
-        Document_Required_Service_Name: ['', [Validators.required]],
+        document_Required_Service_Name: ['', [Validators.required]],
       })
     });
   }
@@ -69,8 +68,34 @@ export class ServiceManagementComponent implements OnInit {
   }
 
   addService(service: any) {
-console.log(service);
+    console.log(service);
+    this.StudentServiceSer.checkService(service).subscribe(res => {
+      if (res.Result) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'اسم الخدمة مكرر',
+          life: 3000,
+        });
+      } else {
+        this.StudentServiceSer.addService(service).subscribe((res) => {
+          //   console.log(res);
+          // this.StudentServiceSer.addDocumentRequire(requireDocument).subscribe(res => {
+          //   console.log(res);
 
+          // })
+          this.services.push(service);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'تم اضافة الخدمة',
+            life: 3000,
+          });
+          this.serviceDialog = false;
+          this.getAllServices();
+        });
+      }
+    })
 
 
     // console.log(service);
@@ -123,23 +148,6 @@ console.log(service);
     //   }
     // }
     //  
-
-    this.StudentServiceSer.addService(service).subscribe((res) => {
-    //   console.log(res);
-    // this.StudentServiceSer.addDocumentRequire(requireDocument).subscribe(res => {
-    //   console.log(res);
-
-    // })
-      this.services.push(service);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: 'تم اضافة الخدمة',
-        life: 3000,
-      });
-      this.serviceDialog = false;
-      this.getAllServices();
-    });
   }
 
   hideDialog() {
@@ -192,9 +200,12 @@ console.log(service);
   }
 
   editServiceDialog(service: service) {
+    console.log(service);
+    
     this.serviceDialog = true;
     this.editServiceButton = true;
     this.newServiceButton = false;
+
     this.services.forEach((element) => {
       if (element.Service_ID == service.Service_ID) {
         console.log(element);
@@ -202,12 +213,14 @@ console.log(service);
         this.serviceForm.patchValue({
           Service_Name: service.Service_Name,
           Service_ID: service.Service_ID,
-          serviceRequiredForm: service.Service_Document_Requireds
+          service_Document_Requireds: [service.Service_Document_Requireds]
 
           // address: {
           //   street: '123 Drew Street'
           // }
         });
+        console.log(this.serviceForm.value);
+        
         // this.serviceForm.controls['Service_Name'].setValue(service.Service_Name);
         // this.serviceForm.controls['Service_ID'].setValue(service.Service_ID);
         // let documents: any = [];

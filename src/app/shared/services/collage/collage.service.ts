@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseComponent } from '../../components/base.component';
+import { collage } from '../../model/collage';
 
 @Injectable({
   providedIn: 'root',
@@ -22,5 +23,9 @@ export class CollageService extends BaseComponent {
 
   editCollage(collageId: any, collage: any) {
     return this.HttpClient.put<any>(this.url + `/api/Collage/${collageId}`, collage);
+  }
+
+  checkCollage(collage: collage){
+    return this.HttpClient.post<any>(this.url + '/api/Collage/CheckIfExist', collage);
   }
 }

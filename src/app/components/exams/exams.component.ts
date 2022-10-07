@@ -1,8 +1,8 @@
 import { CollageService } from '../../shared/services/collage/collage.service';
-import { collage } from '../../model/collage';
+import { collage } from '../../shared/model/collage';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DemandService } from '../../shared/services/demand/demand.service';
-import { demand } from '../../model/demand';
+import { demand } from '../../shared/model/demand';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

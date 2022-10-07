@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { BaseComponent } from '../../components/base.component';
+import { service } from '../../model/service';
 
 @Injectable({
   providedIn: 'root',
@@ -31,5 +32,9 @@ export class StudentServiceService extends BaseComponent {
 
   addDocumentRequire(DocumentRequired:any){
     return this.HttpClient.post<any>(this.url + '/api/ServiceDocumentRequired', DocumentRequired);
+  }
+
+  checkService(service: service){
+    return this.HttpClient.post<any>(this.url + '/api/Service/CheckIfExist', service);
   }
 }

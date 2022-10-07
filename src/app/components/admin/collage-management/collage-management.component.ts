@@ -1,5 +1,5 @@
 import { CollageService } from './../../../shared/services/collage/collage.service';
-import { collage } from './../../../model/collage';
+import { collage } from '../../../shared/model/collage';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -61,17 +61,29 @@ export class CollageManagementComponent implements OnInit {
       collage.Is_Automated_Work=true;
     else if (collage.Is_Automated_Work == "No")
       collage.Is_Automated_Work=false;
-    this.CollageSer.addCollage(collage).subscribe((res) => {
-      this.collages.push(collage);
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: 'تم اضافة الكلية',
-        life: 3000,
-      });
-      this.collageDialog = false;
-      this.getAllCollages();
-    });
+
+    this.CollageSer.checkCollage(collage).subscribe(res => {
+      if (res.Result) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'اسم الكلية مكرر',
+          life: 3000,
+        });
+      } else {
+        this.CollageSer.addCollage(collage).subscribe((res) => {
+          this.collages.push(collage);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: 'تم اضافة الكلية',
+            life: 3000,
+          });
+          this.collageDialog = false;
+          this.getAllCollages();
+        });
+      }
+    })
   }
 
 
@@ -116,16 +128,29 @@ export class CollageManagementComponent implements OnInit {
       collage.Is_Automated_Work=true;
     else if (collage.Is_Automated_Work == "No")
       collage.Is_Automated_Work=false;
-    this.CollageSer.editCollage(collage.Collage_ID, collage).subscribe((res) => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: 'تم تعديل الكلية',
-        life: 3000,
-      });
-      this.collageDialog = false;
-      this.getAllCollages();
-    });
+
+      this.CollageSer.checkCollage(collage).subscribe(res => {
+        if (res.Result) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'اسم الكلية مكرر',
+            life: 3000,
+          });
+        } else {
+          this.CollageSer.editCollage(collage.Collage_ID, collage).subscribe((res) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successful',
+              detail: 'تم تعديل الكلية',
+              life: 3000,
+            });
+            this.collageDialog = false;
+            this.getAllCollages();
+          });
+        }
+      })
+
   }
 
   editAccountDialog(collage: collage) {

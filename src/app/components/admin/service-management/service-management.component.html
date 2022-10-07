@@ -58,7 +58,6 @@
 
 <p-dialog [(visible)]="serviceDialog" [style]="{ width: '450px' }" header="تفاصيل الحدمة" [modal]="true"
     styleClass="p-fluid">
-    <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
     <form [formGroup]="serviceForm">
         <div class="field">
             <label for="name">اسم الخدمة</label>
@@ -67,14 +66,12 @@
     </form>
     
     <form [formGroup]="serviceForm">
-        
-        <div class="field" formGroupName="serviceRequiredForm">
+        <div class="field" formGroupName="service_Document_Requireds">
             <label for="name">اسم الورقة المطلوبة للخدمة</label>
-            <p-chips inputId="chips" formControlName="Document_Required_Service_Name" class="ng-invalid ng-dirty"></p-chips>
+            <p-chips inputId="chips" formControlName="document_Required_Service_Name" class="ng-invalid ng-dirty"></p-chips>
             <span class="text-danger">اضغط enter بعد ادخال كل ورقة</span>
         </div>
     </form>
-    <!-- </ng-template> -->
 
     <ng-template pTemplate="footer">
         <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"

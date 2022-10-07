@@ -26,3 +26,13 @@ li{
 .ul{
     margin-right: 25px;
 }
+
+:host ::ng-deep .p-datatable .p-datatable-thead > tr > th{
+
+    text-align: center !important;
+}
+
+:host ::ng-deep .p-datatable .p-datatable-tbody > tr > td{
+
+    text-align: center !important;
+}

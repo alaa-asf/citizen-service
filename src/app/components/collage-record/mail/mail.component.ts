@@ -1,8 +1,8 @@
 import { CollageService } from './../../../shared/services/collage/collage.service';
-import { collage } from './../../../model/collage';
+import { collage } from '../../../shared/model/collage';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { CollageRecordService } from './../../../shared/services/collage-record/collage-record.service';
-import { centerRecord } from './../../../model/centerRecord';
+import { centerRecord } from '../../../shared/model/centerRecord';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

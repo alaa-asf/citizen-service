@@ -10,7 +10,7 @@ export class SideBarComponent implements OnInit {
   menu = [
     {
       name: 'الادمن',
-      routerLink: 'diwan',
+      routerLink: 'admin',
     },
     {
       name: 'ديوان مركز الخدمة',

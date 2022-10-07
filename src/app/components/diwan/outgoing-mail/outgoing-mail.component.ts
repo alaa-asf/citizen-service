@@ -1,7 +1,7 @@
 import { MessageService } from 'primeng/api';
 import { CenterRecordService } from './../../../shared/services/center-record/center-record.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { centerRecord } from './../../../model/centerRecord';
+import { centerRecord } from '../../../shared/model/centerRecord';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

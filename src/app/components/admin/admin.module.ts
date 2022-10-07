@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin.component';
 import { adminRoutingModule } from './adminRouting.module';
 import { changeNamePipe } from 'src/app/shared/pipes/changeName.pipe';
+import { ReporterManagementComponent } from './reporter-management/reporter-management.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { changeNamePipe } from 'src/app/shared/pipes/changeName.pipe';
     adminRoutingModule,
     SideBarModule
   ],
-  declarations: [AdminComponent, UserManagementComponent, ServiceManagementComponent, CollageManagementComponent, changeNamePipe]
+  declarations: [AdminComponent, UserManagementComponent, ServiceManagementComponent, CollageManagementComponent, changeNamePipe, ReporterManagementComponent]
 })
 export class AdminModule { }

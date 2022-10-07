@@ -1,7 +1,7 @@
 import { DemandService } from './../../shared/services/demand/demand.service';
-import { demand } from './../../model/demand';
-import { service } from './../../model/service';
-import { collage } from './../../model/collage';
+import { demand } from '../../shared/model/demand';
+import { service } from '../../shared/model/service';
+import { collage } from '../../shared/model/collage';
 import { StudentServiceService } from './../../shared/services/student-service/student-service.service';
 import { CollageService } from './../../shared/services/collage/collage.service';
 import { Component, OnInit } from '@angular/core';

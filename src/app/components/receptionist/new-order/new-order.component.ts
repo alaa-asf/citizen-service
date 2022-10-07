@@ -1,13 +1,13 @@
 import { DemandService } from './../../../shared/services/demand/demand.service';
-import { demand } from './../../../model/demand';
-import { studentDemand } from '../../../model/studentDemand';
+import { demand } from '../../../shared/model/demand';
+import { studentDemand } from '../../../shared/model/studentDemand';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StudentServiceService } from './../../../shared/services/student-service/student-service.service';
-import { service } from '../../../model/service';
-import { collage } from '../../../model/collage';
+import { service } from '../../../shared/model/service';
+import { collage } from '../../../shared/model/collage';
 import { studentDemandService } from './../../../shared/services/student-demand/student-demand.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { DocumentRequired } from 'src/app/model/documentRequired';
+import { DocumentRequired } from 'src/app/shared/model/documentRequired';
 
 @Component({
   selector: 'app-new-order',

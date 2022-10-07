@@ -22,4 +22,5 @@ export interface demand {
   agency_No?: string;
   agency_Date?: Date;
   agency_Source?: string;
+  UUID?: string;
 }

@@ -2,7 +2,7 @@ import { accountManagementService } from './../../shared/services/account-manage
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Account } from 'src/app/model/account';
+import { Account } from 'src/app/shared/model/account';
 
 @Component({
   selector: 'login',

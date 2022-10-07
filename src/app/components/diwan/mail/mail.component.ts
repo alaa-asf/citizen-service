@@ -1,9 +1,9 @@
-import { collage } from './../../../model/collage';
+import { collage } from '../../../shared/model/collage';
 import { CollageService } from './../../../shared/services/collage/collage.service';
 import { CenterRecordService } from './../../../shared/services/center-record/center-record.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { demand } from './../../../model/demand';
-import { centerRecord } from './../../../model/centerRecord';
+import { demand } from '../../../shared/model/demand';
+import { centerRecord } from '../../../shared/model/centerRecord';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

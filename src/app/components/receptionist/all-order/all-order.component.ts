@@ -1,7 +1,7 @@
-import { collage } from './../../../model/collage';
-import { service } from './../../../model/service';
+import { collage } from '../../../shared/model/collage';
+import { service } from '../../../shared/model/service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { demand } from './../../../model/demand';
+import { demand } from '../../../shared/model/demand';
 import { DemandService } from './../../../shared/services/demand/demand.service';
 import { Component, Input, OnInit } from '@angular/core';
 // import * as moment from 'moment';

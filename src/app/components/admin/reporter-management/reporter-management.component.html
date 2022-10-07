@@ -1,0 +1,77 @@
+<p-toast></p-toast>
+<div class="container">
+    <div class="row">
+        <h3 class="m-0">إدارة المراسلين</h3>
+    </div>
+
+    <div class="card">
+        <p-toolbar styleClass="mb-4">
+            <ng-template pTemplate="right">
+                <button pButton pRipple label="جديد" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="openNewReporterDialog('newReporter')"></button>&nbsp;&nbsp;
+            </ng-template>
+        </p-toolbar>
+
+        <p-table dir="rtl" #dt [value]="reporters" [rows]="10" [paginator]="true" [globalFilterFields]="[
+        'PostalReporter_Name',
+        'Collage_FK',
+      ]" responsiveLayout="scroll" [responsive]="true" [rowHover]="true" dataKey="id"
+            currentPageReportTemplate="اظهار {first} من {last}" [showCurrentPageReport]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="PostalReporter_Name">
+                        الاسم <p-sortIcon field="PostalReporter_Name"></p-sortIcon>
+                    </th>
+                    <th pSortableColumn="Collage_FK">
+                        الجامعة<p-sortIcon field="Collage_FK"></p-sortIcon>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-reporter>
+                <tr>
+                    <td>{{ reporter.PostalReporter_Name }}</td>
+                    <td>{{ reporter.Collage?.Collage_Name }}</td>
+                    <td>
+                        <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                            (click)="editReporterDialog(reporter)"></button> &nbsp;
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                            (click)="deleteReporter(reporter)"></button>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary">
+                <div class="flex align-items-center justify-content-between">
+                    <p>لديك اجمالي {{ reporters ? reporters.length : 0 }} مستخدم</p>
+                </div>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<p-dialog [(visible)]="reporterDialog" [style]="{ width: '450px' }" header="تفاصيل الحساب" [modal]="true"
+    styleClass="p-fluid">
+    <!-- <ng-template pTemplate="content" style="text-align: right" dir="rtl"> -->
+    <form [formGroup]="reporterForm">
+        <div class="field">
+            <label for="name">الاسم</label>
+            <input formControlName="PostalReporter_Name" type="text" pInputText id="name" />
+        </div>
+    </form>
+    <div class="field">
+        <label for="name">رقم الجامعة</label>
+        <p-dropdown [options]="collages" optionLabel="Collage_Name" [(ngModel)]="selectedCollage" [virtualScroll]="true" appendTo="body"
+            placeholder="اختر كلية"></p-dropdown>
+    </div>
+    <!-- </ng-template> -->
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="الغاء" icon="pi pi-times" class="btn btn-primary mr-1"
+            (click)="hideDialog()"></button>
+        <button *ngIf="newReporterButton" pButton pRipple label="جديد" icon="pi pi-check" class="btn btn-secondary"
+            (click)="addReporter(reporterForm.value)" [disabled]="!reporterForm.valid"></button>
+        <button *ngIf="editReporterButton" pButton pRipple label="تعديل" icon="pi pi-check" class="btn btn-secondary"
+            (click)="editReporter(reporterForm.value)" [disabled]="!reporterForm.valid"></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog></p-confirmDialog>
