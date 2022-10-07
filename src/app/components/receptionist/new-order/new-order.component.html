@@ -12,52 +12,34 @@
             </div>
             <div class="field">
               <form [formGroup]="studentDemandForm">
-                <label for="username1" class="block">الرقم الوطني</label
-                >&nbsp;&nbsp;
-                <input
-                  id="username1"
-                  type="text"
-                  aria-describedby="username1-help"
-                  pInputText
-                  (input)="changeNationalID($event)"
-                  formControlName="student_Demand_National_ID"
-                />
+                <label for="username1" class="block">الرقم الوطني</label>&nbsp;&nbsp;
+                <input class="p-inputtext-sm" id="username1" type="text" aria-describedby="username1-help" pInputText
+                  (input)="changeNationalID($event)" formControlName="student_Demand_National_ID" />
                 <br />
-                <small
-                  *ngIf="isNew"
-                  id="username1-help"
-                  class="block p-inputgroup invalid-feedback"
-                  >مقدم الطلب جديد يرجى ادخال التفاصيل</small
-                >
+                <small *ngIf="isNew" id="username1-help" class="block p-inputgroup invalid-feedback">مقدم الطلب جديد
+                  يرجى ادخال التفاصيل</small>
+                <label for="username1" class="block">الرقم الجامعي</label>&nbsp;&nbsp;
+                <input class="p-inputtext-sm" id="username1" type="text" aria-describedby="username1-help" pInputText
+                  (input)="changeUnivercityNumber($event)" formControlName="student_Demand_Univercity_Number" />
+                <br />
+                <small *ngIf="isNewNum" id="username1-help" class="block p-inputgroup invalid-feedback">مقدم الطلب جديد
+                  يرجى ادخال التفاصيل</small>
               </form>
             </div>
             <div class="field">
               <label for="username1" class="block"> الكلية</label>&nbsp;&nbsp;
-              <p-dropdown
-                [options]="collages"
-                [(ngModel)]="selectedCollage"
-                optionLabel="Collage_Name"
-                placeholder="اختر كلية"
-              ></p-dropdown>
-            </div>
-            <div class="field">
-              <label for="username1" class="block"> الخدمات </label>&nbsp;&nbsp;
-              <p-dropdown
-                (onChange)="onChangeService($event)"
-                [options]="services"
-                [(ngModel)]="selectedService"
-                optionLabel="Service_Name"
-                placeholder="اختر خدمة"
-              ></p-dropdown>
+              <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"
+                placeholder="اختر كلية"></p-dropdown>
             </div>
           </td>
           <td>
+            <div class="field">
+              <label for="username1" class="block"> الخدمات </label>&nbsp;&nbsp;
+              <p-dropdown (onChange)="onChangeService($event)" [options]="services" [(ngModel)]="selectedService"
+                optionLabel="Service_Name" placeholder="اختر خدمة"></p-dropdown>
+            </div>
             <p>الأوراق المطلوبة للخدمة المختارة :</p>
-            <span
-              *ngIf="!selectedService"
-              class="block p-inputgroup invalid-feedback"
-              >لم يتم اختيار الخدمة بعد.</span
-            >
+            <span *ngIf="!selectedService" class="block p-inputgroup invalid-feedback">لم يتم اختيار الخدمة بعد.</span>
             <ul>
               <li *ngFor="let document of DocumentRequired">
                 {{ document.Document_Required_Service_Name }}
@@ -65,66 +47,30 @@
             </ul>
           </td>
         </tr>
-        <tr></tr>
       </table>
-    </p-panel>
-    <p-panel header="مقدم الطلب">
       <form [formGroup]="studentDemandForm">
         <div class="row">
           <div class="col-6 grid p-fluid">
             <div class="col-6 md:col-6 details">
               <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"
-                  ><i class="pi pi-user"></i
-                ></span>
-                <input
-                  class="p-inputtext-lg"
-                  formControlName="student_Demand_FirstName"
-                  type="text"
-                  pInputText
-                  placeholder="الاسم الأول"
-                />
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input class="p-inputtext-sm" formControlName="student_Demand_FirstName" type="text" pInputText
+                  placeholder="الاسم الأول" />
               </div>
             </div>
 
             <div class="col-6 md:col-6 details">
               <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"
-                  ><i class="pi pi-user"></i
-                ></span>
-                <input
-                  class="p-inputtext-lg"
-                  formControlName="student_Demand_LastName"
-                  type="text"
-                  pInputText
-                  placeholder="الاسم الأخير"
-                />
+                <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                <input class="p-inputtext-sm" formControlName="student_Demand_LastName" type="text" pInputText
+                  placeholder="الاسم الأخير" />
               </div>
             </div>
-            <div class="col-6 md:col-6 details">
-              <div class="p-inputgroup">
-                <span class="p-inputgroup-addon"
-                  ><i class="pi pi-info"></i
-                ></span>
-                <input
-                  class="p-inputtext-lg"
-                  formControlName="student_Demand_Univercity_Number"
-                  type="text"
-                  pInputText
-                  placeholder="الرقم الجامعي"
-                />
-              </div>
-            </div>
-
             <div class="col-6 md:col-6 details">
               <div class="">
-                  <p-dropdown
-                    [options]="options"
-                    optionLabel="name"
-                    (onChange)="onChangeAgency($event)"
-                    placeholder="اختر نوع مقدم الطلب"
-                  >
-                  </p-dropdown>
+                <p-dropdown [options]="options" optionLabel="name" (onChange)="onChangeAgency($event)"
+                  placeholder="اختر نوع مقدم الطلب">
+                </p-dropdown>
               </div>
             </div>
           </div>
@@ -133,47 +79,26 @@
             <form [formGroup]="demandForm">
               <div class="col-6 md:col-6 details">
                 <div class="p-inputgroup">
-                  <span class="p-inputgroup-addon"
-                    ><i class="pi pi-user"></i
-                  ></span>
-                  <input
-                    class="p-inputtext-lg"
-                    formControlName="agency_No"
-                    type="text"
-                    pInputText
-                    placeholder="رقم الوكالة"
-                  />
+                  <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                  <input class="p-inputtext-sm" formControlName="agency_No" type="text" pInputText
+                    placeholder="رقم الوكالة" />
                 </div>
               </div>
 
               <div class="col-6 md:col-6 details">
                 <div class="p-inputgroup">
-                  <span class="p-inputgroup-addon"
-                    ><i class="pi pi-user"></i
-                  ></span>
+                  <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                   <!-- <p-calendar formControlName="agency_Date" [(ngModel)]="value" placeholder="تاريخ الوكالة"></p-calendar> -->
-                  <input
-                    class="p-inputtext-lg"
-                    formControlName="agency_Date"
-                    type="date"
-                    pInputText
-                    placeholder="تاريخ الوكالة"
-                  />
+                  <input class="p-inputtext-sm" formControlName="agency_Date" type="date" pInputText
+                    placeholder="تاريخ الوكالة" />
                 </div>
               </div>
 
               <div class="col-6 md:col-6 details">
                 <div class="p-inputgroup">
-                  <span class="p-inputgroup-addon"
-                    ><i class="pi pi-user"></i
-                  ></span>
-                  <input
-                    class="p-inputtext-lg"
-                    formControlName="agency_Source"
-                    type="text"
-                    pInputText
-                    placeholder="جهة الوكالة"
-                  />
+                  <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                  <input class="p-inputtext-sm" formControlName="agency_Source" type="text" pInputText
+                    placeholder="جهة الوكالة" />
                 </div>
               </div>
             </form>
@@ -182,14 +107,12 @@
 
         <div class="col-12 md:col-12">
           <div class="p-inputgroup">
-            <button
-              pButton
-              type="button"
-              class="p-button-raised p-button-rounded"
-              (click)="addDemand(studentDemandForm.value)"
-            >
+            <button pButton type="button" class="p-button-raised p-button-rounded"
+              (click)="addDemand(studentDemandForm.value)">
               تسجيل الطلب
             </button>
+            &nbsp;&nbsp;
+            <button pButton type="button" class="p-button-raised p-button-rounded" (click)="printThisPage()">طباعة الوصل</button>
           </div>
         </div>
       </form>

@@ -8,14 +8,12 @@ import { collage } from '../../../shared/model/collage';
 import { studentDemandService } from './../../../shared/services/student-demand/student-demand.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { DocumentRequired } from 'src/app/shared/model/documentRequired';
-
 @Component({
   selector: 'app-new-order',
   templateUrl: './new-order.component.html',
   styleUrls: ['./new-order.component.css'],
 })
 export class NewOrderComponent implements OnInit {
-
   //collages
   @Input() collages!: collage[];
   selectedCollage!: collage;
@@ -26,7 +24,7 @@ export class NewOrderComponent implements OnInit {
 
   //check if student is new
   isNew: boolean = false;
-
+  isNewNum: boolean = false;
   //agency or not
   isAgency: boolean = false;
   options = [{ name: 'المقدم نفسه' }, { name: 'وكالة' }];
@@ -73,7 +71,7 @@ export class NewOrderComponent implements OnInit {
     let id = {
       student_Demand_National_ID: event.target.value,
     };
-
+    
     if (event.target.value) {
       this.studentDemandSer.checkNationalID(id).subscribe((res) => {
         if (
@@ -95,9 +93,45 @@ export class NewOrderComponent implements OnInit {
           this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(res.Result[0].Student_Demand_Univercity_Number);
           this.selectedCollage = res.Result[0].Collage;
           this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
-
         } else {
           this.isNew = true;
+          // this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(null);
+          // this.studentDemandForm.controls.collage.setValue(null);
+          // this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
+        }
+      });
+    }
+  }
+
+  changeUnivercityNumber(event: any) {
+    let id = {
+      student_Demand_Univercity_Number: event.target.value,
+    };
+
+    if (event.target.value) {
+      this.studentDemandSer.checkUnivercityNumber(id).subscribe((res) => {
+        if (
+          res.Result != null &&
+          id.student_Demand_Univercity_Number ==
+          res.Result[0].Student_Demand_National_ID
+        ) {
+          //old student
+          this.isNewNum = false;
+          this.studentDemandForm.controls.student_Demand_National_ID.setValue(
+            res.Result[0].Student_Demand_National_ID
+          );
+          this.studentDemandForm.controls.student_Demand_FirstName.setValue(
+            res.Result[0].Student_Demand_FirstName
+          );
+          this.studentDemandForm.controls.student_Demand_LastName.setValue(
+            res.Result[0].Student_Demand_LastName
+          );
+          this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(res.Result[0].Student_Demand_Univercity_Number);
+          this.selectedCollage = res.Result[0].Collage;
+          this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
+
+        } else {
+          this.isNewNum = true;
 
           // this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(null);
           // this.studentDemandForm.controls.collage.setValue(null);
@@ -143,5 +177,9 @@ export class NewOrderComponent implements OnInit {
     ).subscribe((res) => {
       this.DocumentRequired = res.Result;
     });
+  }
+
+  printThisPage() {
+    window.print();
   }
 }

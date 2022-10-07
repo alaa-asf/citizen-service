@@ -5,12 +5,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReceptionistComponent } from './receptionist.component';
 import { ReceptionistRoutingModule } from './receptionistRouting.module';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 @NgModule({
   imports: [
     CommonModule,
     sharedModule,
-    ReceptionistRoutingModule
+    ReceptionistRoutingModule,
+    PdfViewerModule
   ],
   declarations: [ReceptionistComponent,NewOrderComponent,AllOrderComponent]
 })

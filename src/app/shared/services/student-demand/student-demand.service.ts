@@ -16,4 +16,8 @@ export class studentDemandService extends BaseComponent {
   addStudentDemand(demand:any){
     return this.HttpClient.post<any>(this.url + '/api/Student_Demand', demand);
   }
+
+  checkUnivercityNumber(demand: any) {
+    return this.HttpClient.post<any>(this.url + '/api/Student_Demand/CheckifUnivercityNumberExist', demand);
+  }
 }
