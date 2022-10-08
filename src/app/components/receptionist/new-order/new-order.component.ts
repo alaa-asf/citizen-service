@@ -71,7 +71,7 @@ export class NewOrderComponent implements OnInit {
     let accountDetail:any = localStorage.getItem('account');
     this.account = JSON.parse(accountDetail);
 
-    console.log('this.account: ', JSON.parse(this.account.User_ID));
+    // console.log('this.account: ', JSON.parse(this.account.User_ID));
     //User_ID
   }
 
@@ -101,15 +101,16 @@ export class NewOrderComponent implements OnInit {
           this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(res.Result[0].Student_Demand_Univercity_Number);
           this.selectedCollage = res.Result[0].Collage;
           this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
-          console.log(res.Result[0]);
+          // console.log(res.Result[0]);
           this.demandForm.controls.Student_Demand_FK.setValue(res.Result[0].Student_Demand_ID);
           this.demandForm.controls.destination_Collage_FK.setValue(this.selectedCollage.Collage_ID);
           this.demandForm.controls.user_Created_FK.setValue(this.account.User_ID);
+          this.demandForm.controls.service_FK.setValue(this.selectedService?.Service_ID);
         } else {
           this.isNew = true;
           // this.studentDemandForm.controls.student_Demand_Univercity_Number.setValue(null);
           // this.studentDemandForm.controls.collage.setValue(null);
-          this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
+          this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage?.Collage_ID);
         }
       });
     }
@@ -153,19 +154,19 @@ export class NewOrderComponent implements OnInit {
   }
 
   addDemand(studentDemand: any) {
-    console.log(this.isNewNum);
-    console.log(this.isNew);
+    // console.log(this.isNewNum);
+    // console.log(this.isNew);
     this.studentDemandForm.controls.collage_FK.setValue(this.selectedCollage.Collage_ID);
     this.demandForm.controls.user_Created_FK.setValue(this.account.User_ID);
     this.demandForm.controls.User_Created_Date.setValue(this.myDate);
+    this.demandForm.controls.demand_Status.setValue('غير مسلم');
+    this.demandForm.controls.demand_Result.setValue('غير منفذ');
+    this.demandForm.controls.demand_Date.setValue(this.myDate);
     if (this.isNewNum == true || this.isNew == true) {
       this.studentDemandSer.addStudentDemand(this.studentDemandForm.value).subscribe((res) => {
         this.demandForm.controls.Student_Demand_FK.setValue(res.Result.Student_Demand_ID);
-        this.demandForm.controls.demand_Date.setValue(this.myDate);
-        this.demandForm.controls.demand_Status.setValue('غير مسلم');
-        this.demandForm.controls.demand_Result.setValue('غير منفذ');
         this.demandForm.controls.destination_Collage_FK.setValue(res.Result.Collage_FK);
-        this.demandForm.controls.service_FK.setValue(this.selectedService.Service_ID);
+        this.demandForm.controls.service_FK.setValue(this.selectedService?.Service_ID);
         this.demandForm.controls.user_Created_FK.setValue(this.account.User_ID);
         this.DemandSer.addDemand(this.demandForm.value).subscribe(res => {
           this.messageService.add({
@@ -199,10 +200,13 @@ export class NewOrderComponent implements OnInit {
 
   onChangeAgency(value: any) {
     if (value.value.name == 'وكالة') {
+      console.log(value.value.name);
+      
       this.isAgency = true;
       this.demandForm.controls.demand_Applicant_Type.setValue('وكالة')
     } else {
       this.isAgency = false;
+      console.log(value.value.name);
       this.demandForm.controls.demand_Applicant_Type.setValue('صاحب العلاقة نفسه')
       this.demandForm.controls.agency_No.setValue(null);
       this.demandForm.controls.agency_Date.setValue(null);

@@ -31,7 +31,7 @@ export class OutgoingMailComponent implements OnInit {
   addDemand(demand: any) {
     this.demandForm.controls['diwan_Date'].setValue(this.myDate);
     this.demandForm.controls['type'].setValue("send");
-    console.log(this.demandForm.value);
+    // console.log(this.demandForm.value);
     this.CollageRecordSer.addDemand(this.demandForm.value).subscribe(res => {
       this.messageService.add({
         severity: 'success',

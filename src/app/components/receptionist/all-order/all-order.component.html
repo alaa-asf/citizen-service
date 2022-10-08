@@ -1,53 +1,70 @@
 <div class="table">
-    <p-table [value]="demands" responsiveLayout="scroll" [responsive]="true">
+    <p-table [value]="demands" [scrollable]="true" responsiveLayout="scroll" [paginator]="true" [rows]="5">
         <ng-template pTemplate="caption">
-            <form [formGroup]="filterForm">
-                <div class="row">
-                    <div class="col-4 p-fluid grid">
-                        <br><br>
-                        <p-calendar formControlName="first_Demand_Date" dateFormat="dd.mm.yy"
-                            (onSelect)="selectDate($event, 'start')" placeholder="من تاريخ"></p-calendar>
-                        <br><br>
-                        <p-calendar formControlName="last_Demand_Date" dateFormat="dd.mm.yy"
-                            (onSelect)="selectDate($event, 'end')" placeholder="الى تاريخ"></p-calendar>
-                        <br><br>
+            <div class="row">
+                <div class="col-3 p-fluid grid">
+                    <form [formGroup]="filterForm">
+                        <br>
+                        <p-calendar formControlName="first_Demand_Date" dateFormat="dd.mm.yy" placeholder="من تاريخ">
+                        </p-calendar>
+                        <br>
+                        <p-calendar formControlName="last_Demand_Date" dateFormat="dd.mm.yy" placeholder="الى تاريخ">
+                        </p-calendar>
+                        <br>
+                    </form>
+                </div>
+                <div class="col-3 p-fluid grid">
+                    <br>
+                    <span class="p-float-label">
+                        <input type="text" id="inputtext" pInputText>
+                        <label for="inputtext" (input)="onSearchChange($event,'Student_Demand_National_ID')">بحث حسب
+                            الرقم الوطني</label>
+                    </span>
+                    <br>
+                    <span class="p-float-label">
+                        <input type="text" id="inputtext" pInputText>
+                        <label for="inputtext" (input)="onSearchChange($event,'Student_Demand_Univercity_Number')">بحث
+                            حسب الرقم الجامعي</label>
+                    </span>
+                    <br>
+                </div>
+                <div class="col-3 p-fluid grid">
+                    <br>
+                    <div class="field">
+                        <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"
+                            placeholder="اختر كلية"></p-dropdown>
                     </div>
-                    <div class="col-4 p-fluid grid">
-                        <br><br>
-                        <span class="p-float-label">
-                            <input type="text" id="inputtext" pInputText formControlName="selectedId">
-                            <label for="inputtext">بحث حسب الرقم الوطني</label>
-                        </span>
-                        <br><br>
-                        <span class="p-float-label">
-                            <input type="text" id="inputtext" pInputText formControlName="selectedNationalId">
-                            <label for="inputtext">بحث حسب الرقم الجامعي</label>
-                        </span>
-                        <br><br>
-                    </div>
-                    <div class="col-4 p-fluid grid">
-                        <br><br>
-                        <div class="field">
-                            <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"
-                              placeholder="اختر كلية"></p-dropdown>
-                          </div>
-                        <!-- <span class="p-float-label">
-                            <input type="text" id="inputtext" pInputText formControlName="selectedCollage">
+                    <!-- <span class="p-float-label">
+                            <input class="p-inputtext-sm" type="text" id="inputtext" pInputText formControlName="selectedCollage">
                             <label for="inputtext">بحث حسب الجامعة</label>
                         </span> -->
-                        <br><br>
-                        <p-dropdown [options]="services" [(ngModel)]="selectedService"
-                        optionLabel="Service_Name" placeholder="اختر خدمة"></p-dropdown>
-                        <!-- <span class="p-float-label">
-                            <input type="text" id="inputtext" pInputText formControlName="selectedService">
+                    <br>
+                    <p-dropdown [options]="services" [(ngModel)]="selectedService" optionLabel="Service_Name"
+                        placeholder="اختر خدمة"></p-dropdown>
+                    <!-- <span class="p-float-label">
+                            <input class="p-inputtext-sm" type="text" id="inputtext" pInputText formControlName="selectedService">
                             <label for="inputtext">بحث حسب الخدمة</label>
                         </span> -->
-                        <br><br>
-                    </div>
+                    <br>
                 </div>
-            </form>
+                <div class="col-3 p-fluid grid">
+                    <br>
+                    <p-dropdown [options]="demandStatus" [(ngModel)]="selectedStatus" optionLabel="option"
+                        placeholder="حالة الطلب"></p-dropdown>
+                    <br>
+                </div>
+            </div>
             <div class="row">
-                <button pButton type="button" label="بحث" (click)="applyFilter(filterForm.value)"></button>
+                <div class="col-6">
+                    <button pButton type="button" label="بحث" (click)="applyFilter(filterForm.value)"></button>
+                    &nbsp;
+                    <button class="p-button-warning" pButton type="button" label="عرض الكل" (click)="clearFilter()"></button>
+                </div>
+                <div class="col-6" >
+                    
+                </div>
+                
+                
             </div>
         </ng-template>
         <ng-template pTemplate="header">
@@ -75,8 +92,15 @@
                 <td>{{demand.Demand_Result}}</td>
                 <td>{{demand.Demand_Status}}</td>
                 <td>{{demand.Demand_Applicant_Type}}</td>
-                <td>{{demand.Service.Service_Name}}</td>
+                <td>{{demand.Service?.Service_Name}}</td>
                 <td>{{demand?.Destination_Collage?.Collage_Name}}</td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+                <td [attr.colspan]="10" style="text-align: center !important;">
+                    <strong>لا يوجد بيانات لعرضها.</strong>
+                </td>
             </tr>
         </ng-template>
     </p-table>

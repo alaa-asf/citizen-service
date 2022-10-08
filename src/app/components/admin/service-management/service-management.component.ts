@@ -68,7 +68,7 @@ export class ServiceManagementComponent implements OnInit {
   }
 
   addService(service: any) {
-    console.log(service);
+    // console.log(service);
     this.StudentServiceSer.checkService(service).subscribe(res => {
       if (res.Result) {
         this.messageService.add({
@@ -200,7 +200,7 @@ export class ServiceManagementComponent implements OnInit {
   }
 
   editServiceDialog(service: service) {
-    console.log(service);
+    // console.log(service);
     
     this.serviceDialog = true;
     this.editServiceButton = true;
@@ -208,7 +208,7 @@ export class ServiceManagementComponent implements OnInit {
 
     this.services.forEach((element) => {
       if (element.Service_ID == service.Service_ID) {
-        console.log(element);
+        // console.log(element);
 
         this.serviceForm.patchValue({
           Service_Name: service.Service_Name,
@@ -219,7 +219,7 @@ export class ServiceManagementComponent implements OnInit {
           //   street: '123 Drew Street'
           // }
         });
-        console.log(this.serviceForm.value);
+        // console.log(this.serviceForm.value);
         
         // this.serviceForm.controls['Service_Name'].setValue(service.Service_Name);
         // this.serviceForm.controls['Service_ID'].setValue(service.Service_ID);

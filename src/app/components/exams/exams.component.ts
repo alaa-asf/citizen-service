@@ -35,7 +35,7 @@ export class examsComponent implements OnInit {
   getDemands(){
     this.DemandSer.getAllDemands().subscribe(res =>{
       this.demands=res.Result;
-      console.log(res.Result);
+      // console.log(res.Result);
       
     })
   }
@@ -49,11 +49,11 @@ export class examsComponent implements OnInit {
   }
 
   search(data: any) {
-    console.log(data);
-    console.log();
+    // console.log(data);
+    // console.log();
     
     const collage = this.filterForm.get('destination_Collage_FK');
-    console.log(collage);
+    // console.log(collage);
     
     if (collage?.value != undefined) {
       this.filterForm.controls['collage_FK'].setValue(collage?.value.Collage_ID)

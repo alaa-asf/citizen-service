@@ -1,5 +1,4 @@
 import { DemandService } from './../../shared/services/demand/demand.service';
-import { demand } from '../../shared/model/demand';
 import { service } from '../../shared/model/service';
 import { collage } from '../../shared/model/collage';
 import { StudentServiceService } from './../../shared/services/student-service/student-service.service';
@@ -14,7 +13,6 @@ import { Component, OnInit } from '@angular/core';
 export class ReceptionistComponent implements OnInit {
   collages!: collage[];
   services!: service[];
-  demands!: demand[];
   constructor(private CollageSer: CollageService, private StudentServiceSer: StudentServiceService, private DemandSer: DemandService) { }
 
   ngOnInit() {
@@ -34,15 +32,4 @@ export class ReceptionistComponent implements OnInit {
     });
   }
 
-  getDemands() {
-    this.DemandSer.getAllDemands().subscribe((data) => {
-      this.demands = data.Result;
-    });
-  }
-
-  onChange(event: any) {
-    if (event) {
-      this.getDemands();
-    }
-  }
 }

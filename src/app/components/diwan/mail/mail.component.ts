@@ -52,7 +52,7 @@ export class MailComponent implements OnInit {
   search(data: any) {
     const collage = this.filterForm.get('collage_FK');
     const type = this.filterForm.get('type');
-    console.log(collage);
+    // console.log(collage);
     
     if (collage?.value != undefined) {
       this.filterForm.controls['collage_FK'].setValue(collage?.value.Collage_ID)

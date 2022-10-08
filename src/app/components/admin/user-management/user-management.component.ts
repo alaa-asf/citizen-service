@@ -74,7 +74,7 @@ export class UserManagementComponent implements OnInit {
     this.userForm.controls['User_Type'].setValue(this.selectedUser);
     this.accountManagementSer.checkAccount(this.userForm.value).subscribe(res => {
       if (res.Result) {
-        console.log("in if ", res.Result);
+        // console.log("in if ", res.Result);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -136,7 +136,7 @@ export class UserManagementComponent implements OnInit {
     this.userForm.controls['User_Type'].setValue(account.User_Type);
     this.accountManagementSer.checkAccount(this.userForm.value).subscribe(res => {
       if (res.Result && account.User_Name == this.userForm.value.User_Name) {
-        console.log("in if ", res.Result);
+        // console.log("in if ", res.Result);
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
