@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <div class="container">
   <div class="row">
     <p-panel header="إدخال تفاصيل الطلب">
@@ -27,7 +28,6 @@
               </form>
             </div>
             <div class="field">
-              <label for="username1" class="block"> الكلية</label>&nbsp;&nbsp;
               <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"
                 placeholder="اختر كلية"></p-dropdown>
             </div>
@@ -107,12 +107,14 @@
 
         <div class="col-12 md:col-12">
           <div class="p-inputgroup">
-            <button pButton type="button" class="p-button-raised p-button-rounded"
+            <button pButton type="button" class="p-button-success"
               (click)="addDemand(studentDemandForm.value)">
               تسجيل الطلب
             </button>
             &nbsp;&nbsp;
-            <button pButton type="button" class="p-button-raised p-button-rounded" (click)="printThisPage()">طباعة الوصل</button>
+            <button pButton type="button" class="p-button-primary" (click)="printThisPage()">طباعة الوصل</button>
+            &nbsp;&nbsp;
+            <button pButton type="button" class="p-button-warning" (click)="newDemand()">طلب جديد</button>
           </div>
         </div>
       </form>

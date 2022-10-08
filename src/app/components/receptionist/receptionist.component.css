@@ -3,7 +3,7 @@
     font-size: 24px !important;
 }
 
-:host ::ng-deep .p-tabview .p-tabview-nav{
+:host ::ng-deep .p-tabview .p-tabview-nav {
     direction: rtl;
 }
 

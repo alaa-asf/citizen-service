@@ -40,6 +40,7 @@ export class logInComponent implements OnInit {
     this.accountManagementSer.logIn(accountInfo).subscribe(
       (res) => {
         this.account = res.Result;
+        localStorage.setItem('account', JSON.stringify(this.account));
         if (res?.Result != null) {
           let accountrole = this.account?.User_Type;
           switch (accountrole) {

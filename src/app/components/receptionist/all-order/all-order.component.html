@@ -5,10 +5,10 @@
                 <div class="row">
                     <div class="col-4 p-fluid grid">
                         <br><br>
-                        <p-calendar formControlName="dateFrom" dateFormat="dd.mm.yy"
+                        <p-calendar formControlName="first_Demand_Date" dateFormat="dd.mm.yy"
                             (onSelect)="selectDate($event, 'start')" placeholder="من تاريخ"></p-calendar>
                         <br><br>
-                        <p-calendar formControlName="dateTo" dateFormat="dd.mm.yy"
+                        <p-calendar formControlName="last_Demand_Date" dateFormat="dd.mm.yy"
                             (onSelect)="selectDate($event, 'end')" placeholder="الى تاريخ"></p-calendar>
                         <br><br>
                     </div>
@@ -27,15 +27,21 @@
                     </div>
                     <div class="col-4 p-fluid grid">
                         <br><br>
-                        <span class="p-float-label">
+                        <div class="field">
+                            <p-dropdown [options]="collages" [(ngModel)]="selectedCollage" optionLabel="Collage_Name"
+                              placeholder="اختر كلية"></p-dropdown>
+                          </div>
+                        <!-- <span class="p-float-label">
                             <input type="text" id="inputtext" pInputText formControlName="selectedCollage">
                             <label for="inputtext">بحث حسب الجامعة</label>
-                        </span>
+                        </span> -->
                         <br><br>
-                        <span class="p-float-label">
+                        <p-dropdown [options]="services" [(ngModel)]="selectedService"
+                        optionLabel="Service_Name" placeholder="اختر خدمة"></p-dropdown>
+                        <!-- <span class="p-float-label">
                             <input type="text" id="inputtext" pInputText formControlName="selectedService">
                             <label for="inputtext">بحث حسب الخدمة</label>
-                        </span>
+                        </span> -->
                         <br><br>
                     </div>
                 </div>
@@ -49,6 +55,7 @@
                 <th>رقم الطلب</th>
                 <th>مقدم الطلب</th>
                 <th>الرقم الوطني</th>
+                <th>الرقم الجامعي</th>
                 <th>تاريخ الطلب</th>
                 <th>نتيجة الطلب</th>
                 <th>حالة الطلب</th>
@@ -63,6 +70,7 @@
                 <td>{{demand.Student_Demand.Student_Demand_FirstName}} {{demand.Student_Demand.Student_Demand_LastName}}
                 </td>
                 <td>{{demand.Student_Demand.Student_Demand_National_ID}}</td>
+                <td>{{demand.Student_Demand.Student_Demand_Univercity_Number}}</td>
                 <td>{{demand.Demand_Date | date: 'dd/MM/yyyy'}}</td>
                 <td>{{demand.Demand_Result}}</td>
                 <td>{{demand.Demand_Status}}</td>
