@@ -17,13 +17,16 @@ export class MailComponent implements OnInit {
   demandDialog: boolean = false;
   filterForm!: FormGroup;
   collages!: collage[];
-  typeOption = [{ name: 'sent' }, { name: 'recive' }]
+  typeOption = [{ name: 'صادر' }, { name: 'وارد' }]
   constructor(private fb: FormBuilder, private CenterRecordSer: CenterRecordService, private CollageSer: CollageService) {
     this.filterForm = this.fb.group({
       first_Diwan_Date: [''],
       last_Diwan_Date: [''],
       type: [''],
-      collage_FK: ['']
+      collage_FK: [''],
+      reporter_Name: [''],
+      diwan_NO: [''],
+      demand_FK: ['']
     })
   }
   ngOnInit() {
@@ -31,33 +34,35 @@ export class MailComponent implements OnInit {
     this.getCollages();
   }
 
-  showDemandDialog(demandId: any) {
-    this.centerRecordDemand.forEach(element => {
-      if (element.Demand_FK == demandId) {
-        let data = element.Demand;
-        this.demandDetail = [data];
-      }
-    });
-    this.demandDialog = true;
-  }
+  // showDemandDialog(demandId: any) {
+  //   this.centerRecordDemand.forEach(element => {
+  //     if (element.Demand_FK == demandId) {
+  //       let data = element.Demand;
+  //       this.demandDetail = [data];
+  //     }
+  //   });
+  //   this.demandDialog = true;
+  // }
 
-  selectDate(event: any, action: any) {
-    if (action == 'start') {
-      this.filterForm.controls['first_Diwan_Date'].setValue(event)
-    } else if (action == 'end') {
-      this.filterForm.controls['last_Diwan_Date'].setValue(event)
-    }
-  }
+  // selectDate(event: any, action: any) {
+  //   if (action == 'start') {
+  //     this.filterForm.controls['first_Diwan_Date'].setValue(event)
+  //   } else if (action == 'end') {
+  //     this.filterForm.controls['last_Diwan_Date'].setValue(event)
+  //   }
+  // }
 
   search(data: any) {
-    const collage = this.filterForm.get('collage_FK');
-    const type = this.filterForm.get('type');
-    // console.log(collage);
+    // const collage = this.filterForm.get('collage_FK');
+    // const type = this.filterForm.get('type');
+    // // console.log(collage);
+
+    // if (collage?.value != undefined) {
+    //   this.filterForm.controls['collage_FK'].setValue(collage?.value.Collage_ID)
+    // }
+    // this.filterForm.controls['type'].setValue(type?.value.name)
+    // console.log(this.filterForm.value);
     
-    if (collage?.value != undefined) {
-      this.filterForm.controls['collage_FK'].setValue(collage?.value.Collage_ID)
-    }
-    this.filterForm.controls['type'].setValue(type?.value.name)
     this.CenterRecordSer.searchDeamand(this.filterForm.value).subscribe(res => {
       this.centerRecordDemand = res.Result
     })

@@ -16,14 +16,14 @@
                 <div class="col-3 p-fluid grid">
                     <br>
                     <span class="p-float-label">
-                        <input type="text" id="inputtext" pInputText>
-                        <label for="inputtext" (input)="onSearchChange($event,'Student_Demand_National_ID')">بحث حسب
+                        <input [(ngModel)]="nationalID" (input)="onSearchChange($event,'Student_Demand_National_ID')" type="text" id="inputtext" pInputText>
+                        <label for="inputtext">بحث حسب
                             الرقم الوطني</label>
                     </span>
                     <br>
                     <span class="p-float-label">
-                        <input type="text" id="inputtext" pInputText>
-                        <label for="inputtext" (input)="onSearchChange($event,'Student_Demand_Univercity_Number')">بحث
+                        <input [(ngModel)]="univercityNumber" (input)="onSearchChange($event,'Student_Demand_Univercity_Number')" type="text" id="inputtext" pInputText>
+                        <label for="inputtext">بحث
                             حسب الرقم الجامعي</label>
                     </span>
                     <br>

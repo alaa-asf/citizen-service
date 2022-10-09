@@ -36,6 +36,7 @@ export class NewOrderComponent implements OnInit {
   demand: demand = {};
   myDate = new Date();
   account: any;
+  selectedPerson: any;
   constructor(
     private studentDemandSer: studentDemandService,
     private StudentServiceSer: StudentServiceService,
@@ -200,13 +201,10 @@ export class NewOrderComponent implements OnInit {
 
   onChangeAgency(value: any) {
     if (value.value.name == 'وكالة') {
-      console.log(value.value.name);
-      
       this.isAgency = true;
       this.demandForm.controls.demand_Applicant_Type.setValue('وكالة')
     } else {
       this.isAgency = false;
-      console.log(value.value.name);
       this.demandForm.controls.demand_Applicant_Type.setValue('صاحب العلاقة نفسه')
       this.demandForm.controls.agency_No.setValue(null);
       this.demandForm.controls.agency_Date.setValue(null);
@@ -234,5 +232,6 @@ export class NewOrderComponent implements OnInit {
     this.isNewNum = false;
     this.isNew = false;
     this.DocumentRequired = [];
+    this.selectedPerson = {};
   }
 }

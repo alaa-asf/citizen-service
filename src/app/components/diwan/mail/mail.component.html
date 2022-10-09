@@ -4,10 +4,10 @@
       <div class="col-4 p-fluid grid">
         <form [formGroup]="filterForm">
           <br>
-          <p-calendar formControlName="first_Diwan_Date" dateFormat="dd.mm.yy" (onSelect)="selectDate($event, 'start')"
+          <p-calendar formControlName="first_Diwan_Date" dateFormat="dd.mm.yy"
             placeholder="من تاريخ"></p-calendar>
           <br>
-          <p-calendar formControlName="last_Diwan_Date" dateFormat="dd.mm.yy" (onSelect)="selectDate($event, 'end')"
+          <p-calendar formControlName="last_Diwan_Date" dateFormat="dd.mm.yy"
             placeholder="الى تاريخ"></p-calendar>
           <br>
         </form>
@@ -15,10 +15,10 @@
       <div class="col-4 p-fluid grid">
         <form [formGroup]="filterForm">
           <br>
-          <p-dropdown [options]="typeOption" formControlName="type" optionLabel="name" placeholder="اختر نوع">
+          <p-dropdown [options]="typeOption" formControlName="type" optionLabel="name" optionValue="name" placeholder="اختر نوع">
           </p-dropdown>
           <br>
-          <p-dropdown [options]="collages" formControlName="collage_FK" optionLabel="Collage_Name"
+          <p-dropdown [options]="collages" formControlName="collage_FK" optionLabel="Collage_Name" optionValue="Collage_ID"
             placeholder="اختر كلية"></p-dropdown>
           <br>
         </form>

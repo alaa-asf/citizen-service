@@ -83,7 +83,8 @@ import {PanelModule} from 'primeng/panel';
     TabViewModule,
     DropdownModule,
     CalendarModule,
-    ChipsModule
+    ChipsModule,
+    TooltipModule
   ],
   exports: [
     CalendarModule,
@@ -121,7 +122,8 @@ import {PanelModule} from 'primeng/panel';
     TabViewModule,
     DropdownModule,
     CalendarModule,
-    ChipsModule
+    ChipsModule,
+    TooltipModule
   ],
   providers:[ConfirmationService,MessageService]
 })

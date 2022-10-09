@@ -1,58 +1,76 @@
+<p-toast></p-toast>
 <div class="container">
   <p-panel header="إضافة الطلبات التي يحملها المراسل :">
-    <form [formGroup]="demandForm">
-      <div class="grid p-fluid">
-        <div class="col-12 md:col-12">
+
+    <div class="grid p-fluid">
+      <div class="row">
+        <div class="col-6 md:col-6">
+          <div class="field">
+            <p-dropdown [options]="reporters" [(ngModel)]="selectedReporter" optionLabel="PostalReporter_Name"
+              placeholder="اختر مراسل"></p-dropdown>
+          </div>
+        </div>
+        <br>
+        <div class="col-6 md:col-6">
+          <form [formGroup]="demandForm">
+            <div class="p-inputgroup">
+              <input formControlName="demand_FK" class="p-inputtext-sm" type="number" pInputText
+                placeholder="رقم الطلب">
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 md:col-4">
           <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-            <input formControlName="reporter_Name" class="p-inputtext-lg" type="text" pInputText placeholder="اسم المراسل">
+            <button (click)="addDemand(demandForm.value)" pButton type="button" class="p-button-raised">إضافة
+              الطلب</button>
+            &nbsp;&nbsp;
+            <button pButton type="button" class="p-button-warning" (click)="newDemand()">طلب جديد</button>
           </div>
         </div>
 
-        <div class="col-12 md:col-12">
-          <div class="p-inputgroup">
-            <span class="p-inputgroup-addon"><i class="pi pi-plus"></i></span>
-            <input formControlName="demand_FK" class="p-inputtext-lg" type="text" pInputText placeholder="رقم الطلب">
-          </div>
-        </div>
-        
-        <div class="col-12 md:col-12">
-          <div class="p-inputgroup">
-            <button (click)="addDemand(demandForm.value)" pButton type="button" class="p-button-raised">إضافة الطلب</button>
-          </div>
+        <div class="col-4 md:col-4"></div>
+        <div class="col-4 md:col-4">
+          <button pTooltip="يقوم هذا الزر باضافة كل الطلبات الى البريد" pButton type="button" class="p-button-primary"
+            (click)="addAllDemands()"> ترحيل الطلبات</button>
         </div>
       </div>
-    </form>
+    </div>
   </p-panel>
   <div class="table">
-    <p-table [value]="CenterRecord" [responsive]="true" responsiveLayout="scroll">
+    <p-table [value]="centerRecordDemand" [responsive]="true" responsiveLayout="scroll">
       <ng-template pTemplate="header">
-          <tr>
-              <th>رقم الطلب</th>
-              <th>تاريخ الطلب</th>
-              <th>الكلية</th>
-              <th>رقم الديوان</th>
-              <th>اسم المراسل</th>
-              <th>النوع</th>
-          </tr>
+        <tr>
+          <th>رقم الطلب</th>
+          <th>تاريخ الطلب</th>
+          <th>الكلية</th>
+          <th>رقم الديوان</th>
+          <th>اسم المراسل</th>
+          <th>النوع</th>
+          <th></th>
+        </tr>
       </ng-template>
       <ng-template pTemplate="body" let-demand>
-          <tr>
-              <td>{{demand.Center_Record_ID}}</td>
-              <td>{{demand?.Demand?.Demand_Date | date: 'dd/MM/yyyy'}}</td>
-              <td>{{demand?.Collage?.Collage_Name}}</td>
-              <td>{{demand.Diwan_NO}}</td>
-              <td>{{demand.Reporter_Name}}</td>
-              <td>{{demand.Type}}</td>
-          </tr>
+        <tr>
+          <td>{{demand.demand_FK}}</td>
+          <td>{{demand?.diwan_Date | date: 'dd/MM/yyyy'}}</td>
+          <td>{{demand?.collage_FK}}</td>
+          <td>{{demand.diwan_NO}}</td>
+          <td>{{demand.reporter_Name}}</td>
+          <td>{{demand.type}}</td>
+          <td>
+            <button pButton type="button" class="p-button-warning" (click)="deleteDemand(demand)">حذف الطلب</button>
+          </td>
+        </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage" let-columns>
         <tr>
-          <td [attr.colspan]="6" style="text-align: center;">
+          <td [attr.colspan]="7" style="text-align: center;">
             <strong>لا يوجد بيانات لعرضها.</strong>
           </td>
         </tr>
       </ng-template>
-  </p-table>
+    </p-table>
   </div>
 </div>

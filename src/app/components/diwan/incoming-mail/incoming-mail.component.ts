@@ -3,6 +3,10 @@ import { CenterRecordService } from './../../../shared/services/center-record/ce
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { centerRecord } from '../../../shared/model/centerRecord';
 import { Component, Input, OnInit } from '@angular/core';
+import { PostalReporterService } from 'src/app/shared/services/postal-reporter/postal-reporter.service';
+import { postalReporter } from 'src/app/shared/model/postalReporter';
+import { studentDemandService } from 'src/app/shared/services/student-demand/student-demand.service';
+import { studentDemand } from 'src/app/shared/model/studentDemand';
 
 @Component({
   selector: 'app-incoming-mail',
@@ -11,9 +15,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class IncomingMailComponent implements OnInit {
   centerRecordDemand!: centerRecord[];
-  demandForm!: FormGroup;
+  demandForm!: any;
   myDate = new Date();
-  constructor(private fb: FormBuilder, private CenterRecordSer: CenterRecordService, private messageService: MessageService) {
+  reporters!: postalReporter[];
+  selectedReporter!: postalReporter;
+  studientDemands!: studentDemand[];
+  constructor(private studentDemandSer: studentDemandService, private fb: FormBuilder, private CenterRecordSer: CenterRecordService, private messageService: MessageService, private PostalReporterSer: PostalReporterService) {
     this.demandForm = this.fb.group({
       demand_FK: [''],
       collage_FK: [''],
@@ -25,26 +32,94 @@ export class IncomingMailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getDemands();
+    this.getPostalReporter();
+    this.getStudientDemands();
+    this.centerRecordDemand = [];
   }
   addDemand(demand: any) {
     this.demandForm.controls['diwan_Date'].setValue(this.myDate);
-    this.demandForm.controls['type'].setValue("recive");
-    this.CenterRecordSer.addDemand(this.demandForm.value).subscribe(res => {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: 'تم اضافة الطلب',
-        life: 3000,
-      });
-      this.getDemands();
+    this.demandForm.controls['type'].setValue("وارد");
+    this.demandForm.controls['reporter_Name'].setValue(this.selectedReporter.PostalReporter_Name);
+    this.studientDemands.forEach(element => {
+      if (element.Student_Demand_ID == demand.demand_FK) {
+        this.demandForm.controls.collage_FK.setValue(element.Collage_FK);
+      }
+    });
+    this.centerRecordDemand.push(this.demandForm.value);
+    this.centerRecordDemand = [...this.centerRecordDemand];
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Successful',
+      detail: 'تم اضافة الطلب',
+      life: 3000,
+    });
+    this.newDemand();
+  }
+
+  getPostalReporter() {
+    this.PostalReporterSer.getAllReporter().subscribe((res: any) => {
+      this.reporters = res;
     })
   }
 
-  getDemands() {
-    this.CenterRecordSer.getAllDemands().subscribe(res => {
-      const result = res.filter((element:any) => element.Type!="sent");
-      this.centerRecordDemand = result;
+  newDemand() {
+    this.demandForm.reset();
+    this.selectedReporter = {};
+  }
+
+  deleteDemand(demand: any) {
+    console.log(demand);
+    const index = this.centerRecordDemand.indexOf(demand);
+    if (index !== -1) {
+      this.centerRecordDemand.splice(index, 1);
+    }
+  }
+
+  addAllDemands() {
+    // this.CenterRecordSer.addDemand(this.demandForm.value).subscribe((res) => {
+    //   if (res.Result == null) {
+    //     this.messageService.add({
+    //       severity: 'error',
+    //       summary: 'error',
+    //       detail: 'لم يتم اضافة الطلب',
+    //       life: 3000,
+    //     });
+    //   } else {
+    //     this.messageService.add({
+    //       severity: 'success',
+    //       summary: 'Successful',
+    //       detail: 'تم اضافة الطلب',
+    //       life: 3000,
+    //     });
+    //     this.getDemands();
+    //   }
+
+    // }, (err) => {
+    //   this.messageService.add({
+    //     severity: 'error',
+    //     summary: 'error',
+    //     detail: 'لم يتم اضافة الطلب',
+    //     life: 3000,
+    //   });
+    // })
+
+    this.centerRecordDemand.forEach(element => {
+      this.CenterRecordSer.addDemand(element).subscribe((res) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: 'تم اضافة الطلب',
+          life: 3000,
+        });
+      })
+    });
+    this.centerRecordDemand = [];
+    this.centerRecordDemand = [...this.centerRecordDemand];
+  }
+
+  getStudientDemands() {
+    this.studentDemandSer.getAll().subscribe(res => {
+      this.studientDemands = res;
     })
   }
 }
