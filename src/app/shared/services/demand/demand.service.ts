@@ -21,7 +21,7 @@ export class DemandService extends BaseComponent {
     return this.HttpClient.post<any>(this.url + '/api/Demand', demand);
   }
 
-  editAccount(demandId: any, demand: any) {
+  editDemand(demandId: any, demand: any) {
     return this.HttpClient.put<any>(this.url + `/api/Demand/?id=${demandId}`, demand);
   }
 

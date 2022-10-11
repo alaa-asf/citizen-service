@@ -25,7 +25,6 @@ export class MailComponent implements OnInit {
       type: [''],
       collage_FK: [''],
       reporter_Name: [''],
-      diwan_NO: [''],
       demand_FK: ['']
     })
   }

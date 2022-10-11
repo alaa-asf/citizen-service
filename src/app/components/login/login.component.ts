@@ -37,6 +37,7 @@ export class logInComponent implements OnInit {
   logIn(accountInfo: any) {
     this.showLogInForm = false;
     this.showSpinner = true;
+    localStorage.clear();
     this.accountManagementSer.logIn(accountInfo).subscribe(
       (res) => {
         this.account = res.Result;

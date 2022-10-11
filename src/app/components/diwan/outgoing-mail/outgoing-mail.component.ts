@@ -25,7 +25,6 @@ export class OutgoingMailComponent implements OnInit {
       demand_FK: [''],
       collage_FK: [''],
       type: [''],
-      diwan_NO: [''],
       diwan_Date: [''],
       reporter_Name: [''],
     });

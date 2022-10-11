@@ -16,6 +16,11 @@
     text-align: right;
 }
 
+.h1{
+    direction: rtl;
+    text-align: right;
+}
+
 .head{
     background-color: #6ABAB9;
     padding: 30px;
