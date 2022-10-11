@@ -28,5 +28,9 @@ export class DemandService extends BaseComponent {
   getSearchDemand(options: any) {
     return this.HttpClient.post<any>(this.url + '/api/Demand/Search', options);
   }
-  
+
+  trackDemand(demandId: any) {
+    return this.HttpClient.get<any>(this.url + `/api/Demand/DemandTracking?id=${demandId}`);
+
+  }
 }
